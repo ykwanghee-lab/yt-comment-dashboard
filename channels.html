@@ -9,31 +9,31 @@
 <title>유튜브 채널 대시보드</title>
 
 <style>
-  :root{--fs:17px;--num:30px;--sub:15px;--title:22px}
-  html.big{--fs:20px;--num:36px;--sub:18px;--title:26px}
+  :root{--fs:17px;--num:28px;--sub:14px;--title:21px}
+  html.big{--fs:20px;--num:34px;--sub:17px;--title:24px}
   *{box-sizing:border-box}
   body{font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#0b0d12;color:#f3f4f6;margin:0 auto;padding:14px 14px 40px;max-width:900px;font-size:var(--fs);line-height:1.5}
-  header{position:sticky;top:0;background:#0b0d12;padding:8px 0 10px;z-index:5;display:flex;align-items:flex-start;gap:10px}
+  header{position:sticky;top:0;background:#0b0d12;padding:6px 0 8px;z-index:5;display:flex;align-items:center;gap:10px}
   header .hd{flex:1;min-width:0}
-  h1{font-size:var(--title);margin:0 0 6px;color:#fff}
+  h1{font-size:var(--title);margin:0 0 2px;color:#fff;white-space:nowrap}
   .sub{font-size:var(--sub);color:#c3c8d1}
   .sub a{color:#9ec5ff;text-decoration:underline}
-  .btn{flex:none;background:#263042;color:#fff;border:1px solid #3b4a63;border-radius:12px;padding:10px 14px;font-size:var(--sub);font-weight:700;cursor:pointer;min-height:44px}
-  .totals{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0 16px}
-  .tot{background:#1b2029;border-radius:14px;padding:14px}
-  .tot .k{font-size:var(--sub);color:#c3c8d1} .tot .v{font-size:var(--num);font-weight:800;margin-top:2px;color:#fff;letter-spacing:-0.5px} .tot .d{font-size:var(--sub);color:#c3c8d1;margin-top:4px}
-  .line{font-size:var(--sub);color:#c3c8d1;margin:-6px 0 12px} .line b{color:#fff}
-  .card{background:#151922;border:1px solid #2b3240;border-radius:16px;padding:0;margin:0 0 10px}
+  .btn{flex:none;background:#263042;color:#fff;border:1px solid #3b4a63;border-radius:12px;padding:8px 12px;font-size:var(--sub);font-weight:700;cursor:pointer;min-height:40px}
+  .totals{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0 8px}
+  .tot{background:#1b2029;border-radius:14px;padding:10px 12px}
+  .tot .k{font-size:var(--sub);color:#c3c8d1} .tot .v{font-size:var(--num);font-weight:800;margin-top:0;color:#fff;letter-spacing:-0.5px;line-height:1.2} .tot .d{font-size:var(--sub);color:#c3c8d1;margin-top:2px}
+  .line{font-size:var(--sub);color:#c3c8d1;margin:0 0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .line b{color:#fff}
+  .card{background:#151922;border:1px solid #2b3240;border-radius:14px;padding:0;margin:0 0 8px}
   .card summary{list-style:none} .card summary::-webkit-details-marker{display:none}
-  .row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;min-height:64px}
-  .rowmain{flex:1;min-width:0} .rname{font-size:var(--fs);font-weight:800;color:#fff;line-height:1.3}
-  .rsub{font-size:var(--sub);color:#c3c8d1;margin-top:2px}
-  .rnum{text-align:right;flex:none} .rv{font-size:calc(var(--num) - 6px);font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1.1} .rd{font-size:var(--sub);color:#c3c8d1}
+  .row{display:flex;align-items:center;gap:10px;padding:8px 12px;cursor:pointer}
+  .rowmain{flex:1;min-width:0} .rname{font-size:var(--fs);font-weight:800;color:#fff;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rsub{font-size:var(--sub);color:#c3c8d1;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rnum{text-align:right;flex:none;max-width:42%} .rv{font-size:calc(var(--fs) + 5px);font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1.15;white-space:nowrap} .rd{font-size:calc(var(--sub) - 1px);color:#c3c8d1;white-space:nowrap}
   .card[open] .row{border-bottom:1px solid #2b3240}
   .body{padding:12px 14px 14px}
   .vhead{font-size:var(--fs);color:#9ec5ff;font-weight:700;margin-top:10px}
   .chhead{display:flex;align-items:center;gap:12px}
-  .avatar{width:44px;height:44px;border-radius:50%;background:#262a33;flex:none}
+  .avatar{width:40px;height:40px;border-radius:50%;background:#262a33;flex:none}
   .chname{flex:1;min-width:0} .chname a{color:#fff;font-weight:800;font-size:var(--title);text-decoration:none;line-height:1.25}
   .handle{font-size:var(--sub);color:#c3c8d1;display:flex;align-items:center;gap:8px;flex-wrap:wrap} .handle a{color:#9ec5ff}
   .spark{width:110px;height:34px;flex:none} .spark polyline{fill:none;stroke:#9ec5ff;stroke-width:2.2}
@@ -63,14 +63,14 @@
 
 <header>
   <div class="hd">
-  <h1>📺 유튜브 채널 대시보드</h1>
-  <div class="sub">갱신 10-17 15:04 · 채널 7개 · 댓글봇 10-17 15:04 · <a href="https://ykwanghee-lab.github.io/yt-comment-dashboard/">댓글 검토 →</a></div>
+  <h1>📺 채널 대시보드</h1>
+  <div class="sub">갱신 10-17 15:05 · 7채널 · <a href="https://ykwanghee-lab.github.io/yt-comment-dashboard/">댓글 검토 →</a></div>
   </div>
   <button class="btn" onclick="toggleBig()" type="button">글자 크게</button>
 </header>
 
 <div class="totals">
-  <div class="tot"><div class="k">총 구독자</div><div class="v">89.0(천)</div><div class="d">오늘 <span class="flat">0</span></div></div>
+  <div class="tot"><div class="k">총 구독자</div><div class="v">89(천)</div><div class="d">오늘 <span class="flat">0</span></div></div>
   <div class="tot"><div class="k">댓글 검토 대기</div><div class="v hot">35</div><div class="d">전 채널 합계</div></div>
 </div>
 <div class="line">총 조회수 <b>87.4(백만)</b> (오늘 <span class="flat">0</span>) · 총 영상 <b>456</b> · 7일 업로드 <b>25</b>개</div>
@@ -80,13 +80,13 @@
 <details class="card">
   <summary class="row">
     <img src="https://yt3.ggpht.com/Q-WKIe_HQeYueEFJuiE7VeYsVY2mdZak8-8dUVfEOL2NEBdqAh-GjbJRQEW9gE3xCYpApPTA=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-    <div class="rowmain"><div class="rname">The_Great_Silence</div><div class="rsub">업로드 1시간 전 · 검토 <b class="hot">1</b>건</div></div>
-    <div class="rnum"><div class="rv">76.0(천)</div><div class="rd">오늘 <span class="na">-</span></div></div>
+    <div class="rowmain"><div class="rname">The_Great_Silence</div><div class="rsub">업로드 1시간 전 · 검토 <b class="hot">1</b></div></div>
+    <div class="rnum"><div class="rv">76(천)</div><div class="rd">오늘 <span class="na">-</span></div></div>
   </summary>
   <div class="body">
   <div class="handle"><a href="https://www.youtube.com/channel/UCsOkxuhKMy27XtcMS548kLw" target="_blank" rel="noopener">@the_great_silence 채널 열기 →</a> · EN · 자동답글 </div>
   <div class="stats">
-    <div class="stat"><div class="k">구독자</div><div class="v">76.0(천)</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
+    <div class="stat"><div class="k">구독자</div><div class="v">76(천)</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
     <div class="stat"><div class="k">총 조회수</div><div class="v">84.6(백만)</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
     <div class="stat"><div class="k">영상 수</div><div class="v">52</div><div class="d">최근 7일 업로드 8개<br>그 조회 590</div></div>
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">1시간 전</div><div class="d">댓글 검토 대기 <b class="hot">1</b>건</div></div>
@@ -97,7 +97,7 @@
 <details class="card">
   <summary class="row">
     <img src="https://yt3.ggpht.com/6247mHyxfrEXMFKKDWMoCsklQcHfWcJksMSwcEXcQTiuKyYIbMeIy-ZU3V7lTKtiJapRWA26cFM=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-    <div class="rowmain"><div class="rname">사연이짱</div><div class="rsub">업로드 1시간 전 · 검토 <b class="hot">3</b>건</div></div>
+    <div class="rowmain"><div class="rname">사연이짱</div><div class="rsub">업로드 1시간 전 · 검토 <b class="hot">3</b></div></div>
     <div class="rnum"><div class="rv">10.5(천)</div><div class="rd">오늘 <span class="na">-</span></div></div>
   </summary>
   <div class="body">
@@ -108,13 +108,13 @@
     <div class="stat"><div class="k">영상 수</div><div class="v">120</div><div class="d">최근 7일 업로드 8개<br>그 조회 45.8(천)</div></div>
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">1시간 전</div><div class="d">댓글 검토 대기 <b class="hot">3</b>건</div></div>
   </div>
-  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=hY_gGObCfEc" target="_blank" rel="noopener">칠순 잔치 날 사위가 장모 귀에 속삭인 말, 아버지가 마이크를 잡고 잔치를 …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>3</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=qvxdgQKv7OU" target="_blank" rel="noopener">20년 넘게 생활비를 보내던 아들이 갑자기 끊은 이유를 알고 오열했습니다 #…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>2.2(천)</b> · 좋아요 270 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=qhQs1kgzrOQ" target="_blank" rel="noopener">20살 손녀가 등록금 핑계로 제게 내민 서류 한 장이 충격입니다 #short…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>5.8(천)</b> · 좋아요 263 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=fpsu5vouZ3g" target="_blank" rel="noopener">아버지 발인 뒤 새어머니가 집에서 나가지 않는 이유를 3년 만에 알고 오열했…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>2.0(천)</b> · 좋아요 117 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=pGvOy232G7g" target="_blank" rel="noopener">1988년 문방구에서 크레파스 값으로 그림 한 장을 받은 아줌마, 삼십팔 년…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>70</b> · 좋아요 2 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=AySncM2zFio" target="_blank" rel="noopener">15년 만에 연락 온 큰아들이 아버지 유품 정리 날 내민 것을 보고 오열했습…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>32.8(천)</b> · 좋아요 1,694 · 댓글 8</div></li><li><a href="https://www.youtube.com/watch?v=_Y-drToqC0A" target="_blank" rel="noopener">재혼 7년 만에 남편을 잃은 저에게 의붓아들이 장례식장에서 요구한 것이 충격…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>2.7(천)</b> · 좋아요 230 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=F5kzZKFk4i8" target="_blank" rel="noopener">늙은 개 데리고 카페 테라스에 앉은 할아버지에게 &quot;냄새 나니 가세요&quot;, 사장…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-12 · 조회 <b>281</b> · 좋아요 5 · 댓글 4</div></li></ul>
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=hY_gGObCfEc" target="_blank" rel="noopener">칠순 잔치 날 사위가 장모 귀에 속삭인 말, 아버지가 마이크를 잡고 잔치를 …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>3</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=qvxdgQKv7OU" target="_blank" rel="noopener">20년 넘게 생활비를 보내던 아들이 갑자기 끊은 이유를 알고 오열했습니다 #…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>2.2(천)</b> · 좋아요 270 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=qhQs1kgzrOQ" target="_blank" rel="noopener">20살 손녀가 등록금 핑계로 제게 내민 서류 한 장이 충격입니다 #short…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>5.8(천)</b> · 좋아요 263 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=fpsu5vouZ3g" target="_blank" rel="noopener">아버지 발인 뒤 새어머니가 집에서 나가지 않는 이유를 3년 만에 알고 오열했…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>2(천)</b> · 좋아요 117 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=pGvOy232G7g" target="_blank" rel="noopener">1988년 문방구에서 크레파스 값으로 그림 한 장을 받은 아줌마, 삼십팔 년…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>70</b> · 좋아요 2 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=AySncM2zFio" target="_blank" rel="noopener">15년 만에 연락 온 큰아들이 아버지 유품 정리 날 내민 것을 보고 오열했습…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>32.8(천)</b> · 좋아요 1,694 · 댓글 8</div></li><li><a href="https://www.youtube.com/watch?v=_Y-drToqC0A" target="_blank" rel="noopener">재혼 7년 만에 남편을 잃은 저에게 의붓아들이 장례식장에서 요구한 것이 충격…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>2.7(천)</b> · 좋아요 230 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=F5kzZKFk4i8" target="_blank" rel="noopener">늙은 개 데리고 카페 테라스에 앉은 할아버지에게 &quot;냄새 나니 가세요&quot;, 사장…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-12 · 조회 <b>281</b> · 좋아요 5 · 댓글 4</div></li></ul>
   </div>
 </details>
 <details class="card">
   <summary class="row">
     <img src="https://yt3.ggpht.com/Bi4DfsS-t4lJiyPio9s_ZpNqMNHKZ8FAxES_vUAaI2fuSG2C8XSA9RSMHaAQrKBrnA7IEpVn=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-    <div class="rowmain"><div class="rname">petzzangs</div><div class="rsub">업로드 5시간 전 · 검토 <b class="hot">1</b>건</div></div>
+    <div class="rowmain"><div class="rname">petzzangs</div><div class="rsub">업로드 5시간 전 · 검토 <b class="hot">1</b></div></div>
     <div class="rnum"><div class="rv">103</div><div class="rd">오늘 <span class="na">-</span></div></div>
   </summary>
   <div class="body">
@@ -122,16 +122,16 @@
   <div class="stats">
     <div class="stat"><div class="k">구독자</div><div class="v">103</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
     <div class="stat"><div class="k">총 조회수</div><div class="v">38.6(천)</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-    <div class="stat"><div class="k">영상 수</div><div class="v">39</div><div class="d">최근 7일 업로드 8개<br>그 조회 15.8(천)</div></div>
+    <div class="stat"><div class="k">영상 수</div><div class="v">39</div><div class="d">최근 7일 업로드 8개<br>그 조회 15.9(천)</div></div>
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">5시간 전</div><div class="d">댓글 검토 대기 <b class="hot">1</b>건</div></div>
   </div>
-  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=4hw_pw7zhyY" target="_blank" rel="noopener">Tiny Kitten Takes the Most Dramatic Big Ya…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>1.3(천)</b> · 좋아요 59 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=XmrauZL2b_w" target="_blank" rel="noopener">The Most Patient Tiny Puppy Gets a Spa Day…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>1.0(천)</b> · 좋아요 36 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EHnyO4AW3mE" target="_blank" rel="noopener">Kittens Dramatically Fall Over After Finge…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>61</b> · 좋아요 8 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=PPXd-YBvEBs" target="_blank" rel="noopener">Welcome to the Tiny Teddy Bear Puppy Conve…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>927</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=UWGqA4PWK3E" target="_blank" rel="noopener">Brave Puppy Takes His First Vet Shot Like …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>9.2(천)</b> · 좋아요 240 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EFwudsWDDjU" target="_blank" rel="noopener">Holding Up a Chubby Puppy and Receiving Pu…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1.3(천)</b> · 좋아요 62 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=Bq73yIPCuXI" target="_blank" rel="noopener">Puppy Completely Surrenders During Belly T…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1.1(천)</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=fY8tc5VSA1Q" target="_blank" rel="noopener">Double-Handed Belly Rub Overload with Ador…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>1.0(천)</b> · 좋아요 102 · 댓글 2</div></li></ul>
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=4hw_pw7zhyY" target="_blank" rel="noopener">Tiny Kitten Takes the Most Dramatic Big Ya…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>1.3(천)</b> · 좋아요 59 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=XmrauZL2b_w" target="_blank" rel="noopener">The Most Patient Tiny Puppy Gets a Spa Day…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>1(천)</b> · 좋아요 36 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EHnyO4AW3mE" target="_blank" rel="noopener">Kittens Dramatically Fall Over After Finge…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>61</b> · 좋아요 8 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=PPXd-YBvEBs" target="_blank" rel="noopener">Welcome to the Tiny Teddy Bear Puppy Conve…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>927</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=UWGqA4PWK3E" target="_blank" rel="noopener">Brave Puppy Takes His First Vet Shot Like …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>9.2(천)</b> · 좋아요 240 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EFwudsWDDjU" target="_blank" rel="noopener">Holding Up a Chubby Puppy and Receiving Pu…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1.3(천)</b> · 좋아요 62 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=Bq73yIPCuXI" target="_blank" rel="noopener">Puppy Completely Surrenders During Belly T…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1.1(천)</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=fY8tc5VSA1Q" target="_blank" rel="noopener">Double-Handed Belly Rub Overload with Ador…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>1(천)</b> · 좋아요 102 · 댓글 2</div></li></ul>
   </div>
 </details>
 <details class="card">
   <summary class="row">
     <img src="https://yt3.ggpht.com/e1Jl0yikFzD8keuBPipgDxckaWMC8Q7xHDqLjyxwJoGry16KtFJQHeSWuvLI21tmMd5-QD4CVSE=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-    <div class="rowmain"><div class="rname">역사재미짱</div><div class="rsub">업로드 6일 전 · 검토 <b class="hot">6</b>건</div></div>
+    <div class="rowmain"><div class="rname">역사재미짱</div><div class="rsub">업로드 6일 전 · 검토 <b class="hot">6</b></div></div>
     <div class="rnum"><div class="rv">57</div><div class="rd">오늘 <span class="na">-</span></div></div>
   </summary>
   <div class="body">
@@ -148,7 +148,7 @@
 <details class="card">
   <summary class="row">
     <img src="https://yt3.ggpht.com/VVWX4OGpoTYwQKRX6aXYYTn5W8o46gJlA8Zgqy6oJHALYZhNNEt9XQuACiNdUmKv0WD87mf6fg=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-    <div class="rowmain"><div class="rname">씬(Cine)21 <span class="warn">⚠ 관리 안 됨</span></div><div class="rsub">업로드 112일 전 · 검토 <b class="hot">11</b>건</div></div>
+    <div class="rowmain"><div class="rname">씬(Cine)21 <span class="warn">⚠ 관리 안 됨</span></div><div class="rsub">업로드 112일 전 · 검토 <b class="hot">11</b></div></div>
     <div class="rnum"><div class="rv">1.3(천)</div><div class="rd">오늘 <span class="na">-</span></div></div>
   </summary>
   <div class="body">
@@ -165,13 +165,13 @@
 <details class="card">
   <summary class="row">
     <img src="https://yt3.ggpht.com/z4mKwbsZbygBwu7_leJ76g54sbToA7xGUYphpxpOZskZwVSJ5U9pkdkq29uy04cspldBWjwkcQ=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-    <div class="rowmain"><div class="rname">정치동네 <span class="warn">⚠ 관리 안 됨</span></div><div class="rsub">업로드 116일 전 · 검토 <b class="hot">13</b>건</div></div>
-    <div class="rnum"><div class="rv">1.0(천)</div><div class="rd">오늘 <span class="na">-</span></div></div>
+    <div class="rowmain"><div class="rname">정치동네 <span class="warn">⚠ 관리 안 됨</span></div><div class="rsub">업로드 116일 전 · 검토 <b class="hot">13</b></div></div>
+    <div class="rnum"><div class="rv">1(천)</div><div class="rd">오늘 <span class="na">-</span></div></div>
   </summary>
   <div class="body">
   <div class="handle"><a href="https://www.youtube.com/channel/UCdnBX14csQpB6KN2MJh1hew" target="_blank" rel="noopener">@정치동네 채널 열기 →</a> · KO · 검토만 </div>
   <div class="stats">
-    <div class="stat"><div class="k">구독자</div><div class="v">1.0(천)</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
+    <div class="stat"><div class="k">구독자</div><div class="v">1(천)</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
     <div class="stat"><div class="k">총 조회수</div><div class="v">136(천)</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
     <div class="stat"><div class="k">영상 수</div><div class="v">148</div><div class="d">최근 7일 업로드 0개<br>그 조회 0</div></div>
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">116일 전</div><div class="d">댓글 검토 대기 <b class="hot">13</b>건</div></div>
@@ -182,7 +182,7 @@
 <details class="card">
   <summary class="row">
     <img src="https://yt3.ggpht.com/YATqPC3EJkzGx0aKjpSOMoDmbgK7sou10Sd-B-LwUDBffVZXpEyYHduCGZAgNDa2JmsFYu9V9og=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-    <div class="rowmain"><div class="rname">무비세상 <span class="warn">⚠ 영상 없음</span></div><div class="rsub">업로드 없음 · 검토 <b class="">0</b>건</div></div>
+    <div class="rowmain"><div class="rname">무비세상 <span class="warn">⚠ 영상 없음</span></div><div class="rsub">업로드 없음 · 검토 <b class="">0</b></div></div>
     <div class="rnum"><div class="rv">1</div><div class="rd">오늘 <span class="na">-</span></div></div>
   </summary>
   <div class="body">
