@@ -22,13 +22,22 @@
   .totals{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0 16px}
   .tot{background:#1b2029;border-radius:14px;padding:14px}
   .tot .k{font-size:var(--sub);color:#c3c8d1} .tot .v{font-size:var(--num);font-weight:800;margin-top:2px;color:#fff;letter-spacing:-0.5px} .tot .d{font-size:var(--sub);color:#c3c8d1;margin-top:4px}
-  .card{background:#151922;border:1px solid #2b3240;border-radius:16px;padding:16px;margin:0 0 14px}
+  .line{font-size:var(--sub);color:#c3c8d1;margin:-6px 0 12px} .line b{color:#fff}
+  .card{background:#151922;border:1px solid #2b3240;border-radius:16px;padding:0;margin:0 0 10px}
+  .card summary{list-style:none} .card summary::-webkit-details-marker{display:none}
+  .row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;min-height:64px}
+  .rowmain{flex:1;min-width:0} .rname{font-size:var(--fs);font-weight:800;color:#fff;line-height:1.3}
+  .rsub{font-size:var(--sub);color:#c3c8d1;margin-top:2px}
+  .rnum{text-align:right;flex:none} .rv{font-size:calc(var(--num) - 6px);font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1.1} .rd{font-size:var(--sub);color:#c3c8d1}
+  .card[open] .row{border-bottom:1px solid #2b3240}
+  .body{padding:12px 14px 14px}
+  .vhead{font-size:var(--fs);color:#9ec5ff;font-weight:700;margin-top:10px}
   .chhead{display:flex;align-items:center;gap:12px}
-  .avatar{width:52px;height:52px;border-radius:50%;background:#262a33;flex:none}
+  .avatar{width:44px;height:44px;border-radius:50%;background:#262a33;flex:none}
   .chname{flex:1;min-width:0} .chname a{color:#fff;font-weight:800;font-size:var(--title);text-decoration:none;line-height:1.25}
-  .handle{font-size:var(--sub);color:#c3c8d1;margin-top:3px}
+  .handle{font-size:var(--sub);color:#c3c8d1;display:flex;align-items:center;gap:8px;flex-wrap:wrap} .handle a{color:#9ec5ff}
   .spark{width:110px;height:34px;flex:none} .spark polyline{fill:none;stroke:#9ec5ff;stroke-width:2.2}
-  .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 10px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 6px}
   .stat{background:#1b2029;border-radius:12px;padding:12px}
   .stat .k{font-size:var(--sub);color:#c3c8d1} .stat .v{font-size:var(--num);font-weight:800;margin-top:2px;color:#fff;letter-spacing:-0.5px} .stat .v.small{font-size:calc(var(--num) - 8px)}
   .stat .d{font-size:var(--sub);color:#d5d9e0;margin-top:5px;line-height:1.55}
@@ -55,223 +64,139 @@
 <header>
   <div class="hd">
   <h1>📺 유튜브 채널 대시보드</h1>
-  <div class="sub">갱신 10-17 15:02 · 채널 7개 · 댓글봇 10-17 14:35 · <a href="https://ykwanghee-lab.github.io/yt-comment-dashboard/">댓글 검토 →</a></div>
+  <div class="sub">갱신 10-17 15:03 · 채널 7개 · 댓글봇 10-17 14:35 · <a href="https://ykwanghee-lab.github.io/yt-comment-dashboard/">댓글 검토 →</a></div>
   </div>
   <button class="btn" onclick="toggleBig()" type="button">글자 크게</button>
 </header>
 
 <div class="totals">
-
   <div class="tot"><div class="k">총 구독자</div><div class="v">88,981</div><div class="d">오늘 <span class="flat">0</span></div></div>
-
-  <div class="tot"><div class="k">총 조회수</div><div class="v">87,432,022</div><div class="d">오늘 <span class="flat">0</span></div></div>
-
-  <div class="tot"><div class="k">총 영상</div><div class="v">456</div><div class="d">7일 업로드 25개</div></div>
-
   <div class="tot"><div class="k">댓글 검토 대기</div><div class="v hot">35</div><div class="d">전 채널 합계</div></div>
-
 </div>
+<div class="line">총 조회수 <b>87,432,032</b> (오늘 <span class="flat">0</span>) · 총 영상 <b>456</b> · 7일 업로드 <b>25</b>개</div>
 
 
 
-
-
-<section class="card">
-
-  <div class="chhead">
-
+<details class="card">
+  <summary class="row">
     <img src="https://yt3.ggpht.com/Q-WKIe_HQeYueEFJuiE7VeYsVY2mdZak8-8dUVfEOL2NEBdqAh-GjbJRQEW9gE3xCYpApPTA=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-
-    <div class="chname"><a href="https://www.youtube.com/channel/UCsOkxuhKMy27XtcMS548kLw" target="_blank" rel="noopener">The_Great_Silence</a><div class="handle">@the_great_silence · EN · 자동답글</div></div>
-
-    
-
-  </div>
-
+    <div class="rowmain"><div class="rname">The_Great_Silence</div><div class="rsub">업로드 1시간 전 · 검토 <b class="hot">1</b>건</div></div>
+    <div class="rnum"><div class="rv">76,000</div><div class="rd">오늘 <span class="na">-</span></div></div>
+  </summary>
+  <div class="body">
+  <div class="handle"><a href="https://www.youtube.com/channel/UCsOkxuhKMy27XtcMS548kLw" target="_blank" rel="noopener">@the_great_silence 채널 열기 →</a> · EN · 자동답글 </div>
   <div class="stats">
-
     <div class="stat"><div class="k">구독자</div><div class="v">76,000</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">총 조회수</div><div class="v">84,560,921</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
-    <div class="stat"><div class="k">영상 수</div><div class="v">52</div><div class="d">최근 7일 업로드 8개<br>그 조회 566</div></div>
-
+    <div class="stat"><div class="k">영상 수</div><div class="v">52</div><div class="d">최근 7일 업로드 8개<br>그 조회 590</div></div>
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">1시간 전</div><div class="d">댓글 검토 대기 <b class="hot">1</b>건</div></div>
-
   </div>
-
-  <details><summary>최근 영상 8개</summary><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=ncQf29jVdG8" target="_blank" rel="noopener">S4E5 · Paid in Full — Four seasons without…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=LaWQAQVk47o" target="_blank" rel="noopener">S4E4 · The Vault — She was raised to colle…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=bLJ5TGNPaNs" target="_blank" rel="noopener">S4E3 · Double Entry — Half the guild had s…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=c0CFQ4KynvE" target="_blank" rel="noopener">S4E2 · The Auction — Three factions bid fo…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=OYLkoY-0Ykg" target="_blank" rel="noopener">S4E1 · Every Debt Recorded — Three keys dr…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=V3X7FUV79xg" target="_blank" rel="noopener">S4E0 · Archive Three — A cathedral sang fo…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=sMW7IEzwAx4" target="_blank" rel="noopener">S2E0 · Archive One — One soldier found the…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>414</b> · 좋아요 4 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=esVfid-II2g" target="_blank" rel="noopener">S1E4 · The Hunter — The sniper who hunted …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>152</b> · 좋아요 2 · 댓글 0</div></li></ul></details>
-
-</section>
-
-<section class="card">
-
-  <div class="chhead">
-
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=ncQf29jVdG8" target="_blank" rel="noopener">S4E5 · Paid in Full — Four seasons without…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=LaWQAQVk47o" target="_blank" rel="noopener">S4E4 · The Vault — She was raised to colle…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=bLJ5TGNPaNs" target="_blank" rel="noopener">S4E3 · Double Entry — Half the guild had s…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=c0CFQ4KynvE" target="_blank" rel="noopener">S4E2 · The Auction — Three factions bid fo…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=OYLkoY-0Ykg" target="_blank" rel="noopener">S4E1 · Every Debt Recorded — Three keys dr…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=V3X7FUV79xg" target="_blank" rel="noopener">S4E0 · Archive Three — A cathedral sang fo…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>0</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=sMW7IEzwAx4" target="_blank" rel="noopener">S2E0 · Archive One — One soldier found the…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>438</b> · 좋아요 4 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=esVfid-II2g" target="_blank" rel="noopener">S1E4 · The Hunter — The sniper who hunted …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>152</b> · 좋아요 2 · 댓글 0</div></li></ul>
+  </div>
+</details>
+<details class="card">
+  <summary class="row">
     <img src="https://yt3.ggpht.com/6247mHyxfrEXMFKKDWMoCsklQcHfWcJksMSwcEXcQTiuKyYIbMeIy-ZU3V7lTKtiJapRWA26cFM=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-
-    <div class="chname"><a href="https://www.youtube.com/channel/UCfpwvmxLT5qSx5OAR3LiLWQ" target="_blank" rel="noopener">사연이짱</a><div class="handle">@사연이짱 · KO · 자동답글</div></div>
-
-    
-
-  </div>
-
+    <div class="rowmain"><div class="rname">사연이짱</div><div class="rsub">업로드 1시간 전 · 검토 <b class="hot">3</b>건</div></div>
+    <div class="rnum"><div class="rv">10,500</div><div class="rd">오늘 <span class="na">-</span></div></div>
+  </summary>
+  <div class="body">
+  <div class="handle"><a href="https://www.youtube.com/channel/UCfpwvmxLT5qSx5OAR3LiLWQ" target="_blank" rel="noopener">@사연이짱 채널 열기 →</a> · KO · 자동답글 </div>
   <div class="stats">
-
     <div class="stat"><div class="k">구독자</div><div class="v">10,500</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">총 조회수</div><div class="v">2,602,006</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
-    <div class="stat"><div class="k">영상 수</div><div class="v">120</div><div class="d">최근 7일 업로드 8개<br>그 조회 45,640</div></div>
-
+    <div class="stat"><div class="k">영상 수</div><div class="v">120</div><div class="d">최근 7일 업로드 8개<br>그 조회 45,711</div></div>
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">1시간 전</div><div class="d">댓글 검토 대기 <b class="hot">3</b>건</div></div>
-
   </div>
-
-  <details><summary>최근 영상 8개</summary><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=hY_gGObCfEc" target="_blank" rel="noopener">칠순 잔치 날 사위가 장모 귀에 속삭인 말, 아버지가 마이크를 잡고 잔치를 …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>3</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=qvxdgQKv7OU" target="_blank" rel="noopener">20년 넘게 생활비를 보내던 아들이 갑자기 끊은 이유를 알고 오열했습니다 #…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>2,100</b> · 좋아요 269 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=qhQs1kgzrOQ" target="_blank" rel="noopener">20살 손녀가 등록금 핑계로 제게 내민 서류 한 장이 충격입니다 #short…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>5,792</b> · 좋아요 262 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=fpsu5vouZ3g" target="_blank" rel="noopener">아버지 발인 뒤 새어머니가 집에서 나가지 않는 이유를 3년 만에 알고 오열했…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>2,008</b> · 좋아요 117 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=pGvOy232G7g" target="_blank" rel="noopener">1988년 문방구에서 크레파스 값으로 그림 한 장을 받은 아줌마, 삼십팔 년…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>69</b> · 좋아요 2 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=AySncM2zFio" target="_blank" rel="noopener">15년 만에 연락 온 큰아들이 아버지 유품 정리 날 내민 것을 보고 오열했습…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>32,710</b> · 좋아요 1,693 · 댓글 8</div></li><li><a href="https://www.youtube.com/watch?v=_Y-drToqC0A" target="_blank" rel="noopener">재혼 7년 만에 남편을 잃은 저에게 의붓아들이 장례식장에서 요구한 것이 충격…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>2,677</b> · 좋아요 230 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=F5kzZKFk4i8" target="_blank" rel="noopener">늙은 개 데리고 카페 테라스에 앉은 할아버지에게 &quot;냄새 나니 가세요&quot;, 사장…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-12 · 조회 <b>281</b> · 좋아요 5 · 댓글 4</div></li></ul></details>
-
-</section>
-
-<section class="card">
-
-  <div class="chhead">
-
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=hY_gGObCfEc" target="_blank" rel="noopener">칠순 잔치 날 사위가 장모 귀에 속삭인 말, 아버지가 마이크를 잡고 잔치를 …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>3</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=qvxdgQKv7OU" target="_blank" rel="noopener">20년 넘게 생활비를 보내던 아들이 갑자기 끊은 이유를 알고 오열했습니다 #…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>2,100</b> · 좋아요 270 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=qhQs1kgzrOQ" target="_blank" rel="noopener">20살 손녀가 등록금 핑계로 제게 내민 서류 한 장이 충격입니다 #short…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>5,813</b> · 좋아요 262 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=fpsu5vouZ3g" target="_blank" rel="noopener">아버지 발인 뒤 새어머니가 집에서 나가지 않는 이유를 3년 만에 알고 오열했…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>2,008</b> · 좋아요 117 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=pGvOy232G7g" target="_blank" rel="noopener">1988년 문방구에서 크레파스 값으로 그림 한 장을 받은 아줌마, 삼십팔 년…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>70</b> · 좋아요 2 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=AySncM2zFio" target="_blank" rel="noopener">15년 만에 연락 온 큰아들이 아버지 유품 정리 날 내민 것을 보고 오열했습…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>32,759</b> · 좋아요 1,694 · 댓글 8</div></li><li><a href="https://www.youtube.com/watch?v=_Y-drToqC0A" target="_blank" rel="noopener">재혼 7년 만에 남편을 잃은 저에게 의붓아들이 장례식장에서 요구한 것이 충격…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>2,677</b> · 좋아요 230 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=F5kzZKFk4i8" target="_blank" rel="noopener">늙은 개 데리고 카페 테라스에 앉은 할아버지에게 &quot;냄새 나니 가세요&quot;, 사장…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-12 · 조회 <b>281</b> · 좋아요 5 · 댓글 4</div></li></ul>
+  </div>
+</details>
+<details class="card">
+  <summary class="row">
     <img src="https://yt3.ggpht.com/Bi4DfsS-t4lJiyPio9s_ZpNqMNHKZ8FAxES_vUAaI2fuSG2C8XSA9RSMHaAQrKBrnA7IEpVn=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-
-    <div class="chname"><a href="https://www.youtube.com/channel/UCR0V6uu1hZ3nFLF5-nPFtpg" target="_blank" rel="noopener">petzzangs</a><div class="handle">@petzzangs · EN · 자동답글</div></div>
-
-    
-
-  </div>
-
+    <div class="rowmain"><div class="rname">petzzangs</div><div class="rsub">업로드 5시간 전 · 검토 <b class="hot">1</b>건</div></div>
+    <div class="rnum"><div class="rv">103</div><div class="rd">오늘 <span class="na">-</span></div></div>
+  </summary>
+  <div class="body">
+  <div class="handle"><a href="https://www.youtube.com/channel/UCR0V6uu1hZ3nFLF5-nPFtpg" target="_blank" rel="noopener">@petzzangs 채널 열기 →</a> · EN · 자동답글 </div>
   <div class="stats">
-
     <div class="stat"><div class="k">구독자</div><div class="v">103</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">총 조회수</div><div class="v">38,603</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
-    <div class="stat"><div class="k">영상 수</div><div class="v">39</div><div class="d">최근 7일 업로드 8개<br>그 조회 15,822</div></div>
-
+    <div class="stat"><div class="k">영상 수</div><div class="v">39</div><div class="d">최근 7일 업로드 8개<br>그 조회 15,851</div></div>
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">5시간 전</div><div class="d">댓글 검토 대기 <b class="hot">1</b>건</div></div>
-
   </div>
-
-  <details><summary>최근 영상 8개</summary><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=4hw_pw7zhyY" target="_blank" rel="noopener">Tiny Kitten Takes the Most Dramatic Big Ya…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>1,316</b> · 좋아요 59 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=XmrauZL2b_w" target="_blank" rel="noopener">The Most Patient Tiny Puppy Gets a Spa Day…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>1,008</b> · 좋아요 36 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EHnyO4AW3mE" target="_blank" rel="noopener">Kittens Dramatically Fall Over After Finge…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>61</b> · 좋아요 8 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=PPXd-YBvEBs" target="_blank" rel="noopener">Welcome to the Tiny Teddy Bear Puppy Conve…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>927</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=UWGqA4PWK3E" target="_blank" rel="noopener">Brave Puppy Takes His First Vet Shot Like …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>9,153</b> · 좋아요 240 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EFwudsWDDjU" target="_blank" rel="noopener">Holding Up a Chubby Puppy and Receiving Pu…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1,276</b> · 좋아요 62 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=Bq73yIPCuXI" target="_blank" rel="noopener">Puppy Completely Surrenders During Belly T…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1,055</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=fY8tc5VSA1Q" target="_blank" rel="noopener">Double-Handed Belly Rub Overload with Ador…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>1,026</b> · 좋아요 102 · 댓글 2</div></li></ul></details>
-
-</section>
-
-<section class="card">
-
-  <div class="chhead">
-
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=4hw_pw7zhyY" target="_blank" rel="noopener">Tiny Kitten Takes the Most Dramatic Big Ya…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-17 · 조회 <b>1,343</b> · 좋아요 59 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=XmrauZL2b_w" target="_blank" rel="noopener">The Most Patient Tiny Puppy Gets a Spa Day…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>1,010</b> · 좋아요 36 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EHnyO4AW3mE" target="_blank" rel="noopener">Kittens Dramatically Fall Over After Finge…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-16 · 조회 <b>61</b> · 좋아요 8 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=PPXd-YBvEBs" target="_blank" rel="noopener">Welcome to the Tiny Teddy Bear Puppy Conve…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>927</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=UWGqA4PWK3E" target="_blank" rel="noopener">Brave Puppy Takes His First Vet Shot Like …</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-15 · 조회 <b>9,153</b> · 좋아요 240 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=EFwudsWDDjU" target="_blank" rel="noopener">Holding Up a Chubby Puppy and Receiving Pu…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1,276</b> · 좋아요 62 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=Bq73yIPCuXI" target="_blank" rel="noopener">Puppy Completely Surrenders During Belly T…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-14 · 조회 <b>1,055</b> · 좋아요 32 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=fY8tc5VSA1Q" target="_blank" rel="noopener">Double-Handed Belly Rub Overload with Ador…</a><div class="vmeta"><span class="tag short">쇼츠</span> 10-13 · 조회 <b>1,026</b> · 좋아요 102 · 댓글 2</div></li></ul>
+  </div>
+</details>
+<details class="card">
+  <summary class="row">
     <img src="https://yt3.ggpht.com/e1Jl0yikFzD8keuBPipgDxckaWMC8Q7xHDqLjyxwJoGry16KtFJQHeSWuvLI21tmMd5-QD4CVSE=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-
-    <div class="chname"><a href="https://www.youtube.com/channel/UC5fF8x-PcmzIKTm-_Ao23Cw" target="_blank" rel="noopener">역사재미짱</a><div class="handle">@역사재미짱 · KO · 자동답글</div></div>
-
-    
-
-  </div>
-
+    <div class="rowmain"><div class="rname">역사재미짱</div><div class="rsub">업로드 6일 전 · 검토 <b class="hot">6</b>건</div></div>
+    <div class="rnum"><div class="rv">57</div><div class="rd">오늘 <span class="na">-</span></div></div>
+  </summary>
+  <div class="body">
+  <div class="handle"><a href="https://www.youtube.com/channel/UC5fF8x-PcmzIKTm-_Ao23Cw" target="_blank" rel="noopener">@역사재미짱 채널 열기 →</a> · KO · 자동답글 </div>
   <div class="stats">
-
     <div class="stat"><div class="k">구독자</div><div class="v">57</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">총 조회수</div><div class="v">30,499</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">영상 수</div><div class="v">34</div><div class="d">최근 7일 업로드 1개<br>그 조회 212</div></div>
-
     <div class="stat"><div class="k">마지막 업로드</div><div class="v small">6일 전</div><div class="d">댓글 검토 대기 <b class="hot">6</b>건</div></div>
-
   </div>
-
-  <details><summary>최근 영상 8개</summary><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=6PEaimuR44M" target="_blank" rel="noopener">영부인 피격 그 후｜단교 직전까지 간 한일 35일, 차지철, 22살 박근혜 …</a><div class="vmeta"><span class="tag long">롱폼</span> 10-10 · 조회 <b>212</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=UxGPGWCQE0w" target="_blank" rel="noopener">사라진 총알｜육영수 여사를 맞힌 탄두는 왜 감정 기록이 없나 — 암살자(들)…</a><div class="vmeta"><span class="tag long">롱폼</span> 10-09 · 조회 <b>318</b> · 좋아요 1 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=152duwVA7Xc" target="_blank" rel="noopener">문세광은 누구였나｜한국은 &#x27;북한 지령&#x27;, 일본 경찰은 &#x27;증거 없음&#x27; — 암살…</a><div class="vmeta"><span class="tag long">롱폼</span> 10-08 · 조회 <b>147</b> · 좋아요 3 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=n3pb89__Z-c" target="_blank" rel="noopener">1974년 8월 15일 그날｜비표 없는 입장, 총성, 그리고 계속된 연설 —…</a><div class="vmeta"><span class="tag long">롱폼</span> 10-07 · 조회 <b>341</b> · 좋아요 1 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=12b7Yb9Dq6E" target="_blank" rel="noopener">영화 암살자(들) 10분 총정리｜기록에서 가져온 것 vs 지어낸 것 3가지 …</a><div class="vmeta"><span class="tag long">롱폼</span> 10-06 · 조회 <b>273</b> · 좋아요 2 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=vZzZ0P2cllY" target="_blank" rel="noopener">오디세이 마지막 고백은 실화였다 — 이집트 신전 벽의 &#x27;바다에서 온 자들&#x27;</a><div class="vmeta"><span class="tag long">롱폼</span> 10-02 · 조회 <b>68</b> · 좋아요 2 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=mbj9qD3_Z88" target="_blank" rel="noopener">놀란이 오디세이에서 잘라낸 7개 장면 — &#x27;아무도 아니다&#x27;는 왜 사라졌나</a><div class="vmeta"><span class="tag long">롱폼</span> 10-01 · 조회 <b>138</b> · 좋아요 4 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=JVOYk-TtWDo" target="_blank" rel="noopener">오디세이가 끝난 뒤 — 트로이 패잔병의 후손이 로마를 세웠다</a><div class="vmeta"><span class="tag long">롱폼</span> 09-30 · 조회 <b>295</b> · 좋아요 3 · 댓글 0</div></li></ul></details>
-
-</section>
-
-<section class="card">
-
-  <div class="chhead">
-
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=6PEaimuR44M" target="_blank" rel="noopener">영부인 피격 그 후｜단교 직전까지 간 한일 35일, 차지철, 22살 박근혜 …</a><div class="vmeta"><span class="tag long">롱폼</span> 10-10 · 조회 <b>212</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=UxGPGWCQE0w" target="_blank" rel="noopener">사라진 총알｜육영수 여사를 맞힌 탄두는 왜 감정 기록이 없나 — 암살자(들)…</a><div class="vmeta"><span class="tag long">롱폼</span> 10-09 · 조회 <b>318</b> · 좋아요 1 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=152duwVA7Xc" target="_blank" rel="noopener">문세광은 누구였나｜한국은 &#x27;북한 지령&#x27;, 일본 경찰은 &#x27;증거 없음&#x27; — 암살…</a><div class="vmeta"><span class="tag long">롱폼</span> 10-08 · 조회 <b>147</b> · 좋아요 3 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=n3pb89__Z-c" target="_blank" rel="noopener">1974년 8월 15일 그날｜비표 없는 입장, 총성, 그리고 계속된 연설 —…</a><div class="vmeta"><span class="tag long">롱폼</span> 10-07 · 조회 <b>341</b> · 좋아요 1 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=12b7Yb9Dq6E" target="_blank" rel="noopener">영화 암살자(들) 10분 총정리｜기록에서 가져온 것 vs 지어낸 것 3가지 …</a><div class="vmeta"><span class="tag long">롱폼</span> 10-06 · 조회 <b>273</b> · 좋아요 2 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=vZzZ0P2cllY" target="_blank" rel="noopener">오디세이 마지막 고백은 실화였다 — 이집트 신전 벽의 &#x27;바다에서 온 자들&#x27;</a><div class="vmeta"><span class="tag long">롱폼</span> 10-02 · 조회 <b>68</b> · 좋아요 2 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=mbj9qD3_Z88" target="_blank" rel="noopener">놀란이 오디세이에서 잘라낸 7개 장면 — &#x27;아무도 아니다&#x27;는 왜 사라졌나</a><div class="vmeta"><span class="tag long">롱폼</span> 10-01 · 조회 <b>138</b> · 좋아요 4 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=JVOYk-TtWDo" target="_blank" rel="noopener">오디세이가 끝난 뒤 — 트로이 패잔병의 후손이 로마를 세웠다</a><div class="vmeta"><span class="tag long">롱폼</span> 09-30 · 조회 <b>295</b> · 좋아요 3 · 댓글 0</div></li></ul>
+  </div>
+</details>
+<details class="card">
+  <summary class="row">
     <img src="https://yt3.ggpht.com/VVWX4OGpoTYwQKRX6aXYYTn5W8o46gJlA8Zgqy6oJHALYZhNNEt9XQuACiNdUmKv0WD87mf6fg=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-
-    <div class="chname"><a href="https://www.youtube.com/channel/UC3h2wq0MYJrzldMWpasrgog" target="_blank" rel="noopener">씬(Cine)21</a><div class="handle">@씬21 · KO · 자동답글</div></div>
-
-    
-
-  </div>
-
+    <div class="rowmain"><div class="rname">씬(Cine)21 <span class="warn">⚠ 관리 안 됨</span></div><div class="rsub">업로드 112일 전 · 검토 <b class="hot">11</b>건</div></div>
+    <div class="rnum"><div class="rv">1,280</div><div class="rd">오늘 <span class="na">-</span></div></div>
+  </summary>
+  <div class="body">
+  <div class="handle"><a href="https://www.youtube.com/channel/UC3h2wq0MYJrzldMWpasrgog" target="_blank" rel="noopener">@씬21 채널 열기 →</a> · KO · 자동답글 </div>
   <div class="stats">
-
     <div class="stat"><div class="k">구독자</div><div class="v">1,280</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">총 조회수</div><div class="v">64,418</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">영상 수</div><div class="v">63</div><div class="d">최근 7일 업로드 0개<br>그 조회 0</div></div>
-
-    <div class="stat"><div class="k">마지막 업로드</div><div class="v small">112일 전 <span class="warn">⚠ 관리 안 됨</span></div><div class="d">댓글 검토 대기 <b class="hot">11</b>건</div></div>
-
+    <div class="stat"><div class="k">마지막 업로드</div><div class="v small">112일 전</div><div class="d">댓글 검토 대기 <b class="hot">11</b>건</div></div>
   </div>
-
-  <details><summary>최근 영상 8개</summary><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=n6QIqGEJ7j8" target="_blank" rel="noopener">마이클 잭슨의 특허 신발 이야기 — 인간이 할 수 없는 45도의 비밀</a><div class="vmeta"><span class="tag long">롱폼</span> 06-27 · 조회 <b>61</b> · 좋아요 1 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=tYXn4kK7FSs" target="_blank" rel="noopener">문워크의 진실 — 마이클 잭슨은 정말 그 춤을 처음 만들었을까</a><div class="vmeta"><span class="tag long">롱폼</span> 06-26 · 조회 <b>21</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=8z8CQCH_ioA" target="_blank" rel="noopener">친구의 노래를 통째로 사버린 남자 — 마이클 잭슨이 비틀즈 저작권을 손에 넣…</a><div class="vmeta"><span class="tag long">롱폼</span> 06-25 · 조회 <b>42</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=9szXCyOd31Y" target="_blank" rel="noopener">팝의 황제가 스크린으로 돌아온다 — 마이클 잭슨 전기 영화 「마이클」</a><div class="vmeta"><span class="tag long">롱폼</span> 06-24 · 조회 <b>58</b> · 좋아요 1 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=_u3oHD1B-c4" target="_blank" rel="noopener">보스의 딸 남친인 줄 모르고 건드렸을 때 마피아의 1초 태세 전환 💼</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-21 · 조회 <b>1,354</b> · 좋아요 11 · 댓글 42</div></li><li><a href="https://www.youtube.com/watch?v=61OpJxRaDOI" target="_blank" rel="noopener">진짜 그 세계는 어떻게 봤을까 — 실제 마피아가 본 드라마 「소프라노스」</a><div class="vmeta"><span class="tag long">롱폼</span> 06-21 · 조회 <b>69</b> · 좋아요 2 · 댓글 1</div></li><li><a href="https://www.youtube.com/watch?v=u_IPNksVpLo" target="_blank" rel="noopener">무서운 범죄 두목인데 왜? — 미국인들이 토니 소프라노에 열광한 다섯 가지 …</a><div class="vmeta"><span class="tag long">롱폼</span> 06-21 · 조회 <b>452</b> · 좋아요 4 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=2j4Hx0ZifUQ" target="_blank" rel="noopener">마피아 보스가 선 넘는 진상 노조원을 합법적으로 짓밟는 법 💼</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-21 · 조회 <b>1,347</b> · 좋아요 9 · 댓글 0</div></li></ul></details>
-
-</section>
-
-<section class="card">
-
-  <div class="chhead">
-
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=n6QIqGEJ7j8" target="_blank" rel="noopener">마이클 잭슨의 특허 신발 이야기 — 인간이 할 수 없는 45도의 비밀</a><div class="vmeta"><span class="tag long">롱폼</span> 06-27 · 조회 <b>61</b> · 좋아요 1 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=tYXn4kK7FSs" target="_blank" rel="noopener">문워크의 진실 — 마이클 잭슨은 정말 그 춤을 처음 만들었을까</a><div class="vmeta"><span class="tag long">롱폼</span> 06-26 · 조회 <b>21</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=8z8CQCH_ioA" target="_blank" rel="noopener">친구의 노래를 통째로 사버린 남자 — 마이클 잭슨이 비틀즈 저작권을 손에 넣…</a><div class="vmeta"><span class="tag long">롱폼</span> 06-25 · 조회 <b>42</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=9szXCyOd31Y" target="_blank" rel="noopener">팝의 황제가 스크린으로 돌아온다 — 마이클 잭슨 전기 영화 「마이클」</a><div class="vmeta"><span class="tag long">롱폼</span> 06-24 · 조회 <b>58</b> · 좋아요 1 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=_u3oHD1B-c4" target="_blank" rel="noopener">보스의 딸 남친인 줄 모르고 건드렸을 때 마피아의 1초 태세 전환 💼</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-21 · 조회 <b>1,354</b> · 좋아요 11 · 댓글 42</div></li><li><a href="https://www.youtube.com/watch?v=61OpJxRaDOI" target="_blank" rel="noopener">진짜 그 세계는 어떻게 봤을까 — 실제 마피아가 본 드라마 「소프라노스」</a><div class="vmeta"><span class="tag long">롱폼</span> 06-21 · 조회 <b>69</b> · 좋아요 2 · 댓글 1</div></li><li><a href="https://www.youtube.com/watch?v=u_IPNksVpLo" target="_blank" rel="noopener">무서운 범죄 두목인데 왜? — 미국인들이 토니 소프라노에 열광한 다섯 가지 …</a><div class="vmeta"><span class="tag long">롱폼</span> 06-21 · 조회 <b>452</b> · 좋아요 4 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=2j4Hx0ZifUQ" target="_blank" rel="noopener">마피아 보스가 선 넘는 진상 노조원을 합법적으로 짓밟는 법 💼</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-21 · 조회 <b>1,347</b> · 좋아요 9 · 댓글 0</div></li></ul>
+  </div>
+</details>
+<details class="card">
+  <summary class="row">
     <img src="https://yt3.ggpht.com/z4mKwbsZbygBwu7_leJ76g54sbToA7xGUYphpxpOZskZwVSJ5U9pkdkq29uy04cspldBWjwkcQ=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-
-    <div class="chname"><a href="https://www.youtube.com/channel/UCdnBX14csQpB6KN2MJh1hew" target="_blank" rel="noopener">정치동네</a><div class="handle">@정치동네 · KO · 검토만</div></div>
-
-    
-
-  </div>
-
+    <div class="rowmain"><div class="rname">정치동네 <span class="warn">⚠ 관리 안 됨</span></div><div class="rsub">업로드 116일 전 · 검토 <b class="hot">13</b>건</div></div>
+    <div class="rnum"><div class="rv">1,040</div><div class="rd">오늘 <span class="na">-</span></div></div>
+  </summary>
+  <div class="body">
+  <div class="handle"><a href="https://www.youtube.com/channel/UCdnBX14csQpB6KN2MJh1hew" target="_blank" rel="noopener">@정치동네 채널 열기 →</a> · KO · 검토만 </div>
   <div class="stats">
-
     <div class="stat"><div class="k">구독자</div><div class="v">1,040</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
-    <div class="stat"><div class="k">총 조회수</div><div class="v">135,575</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
+    <div class="stat"><div class="k">총 조회수</div><div class="v">135,585</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
     <div class="stat"><div class="k">영상 수</div><div class="v">148</div><div class="d">최근 7일 업로드 0개<br>그 조회 0</div></div>
-
-    <div class="stat"><div class="k">마지막 업로드</div><div class="v small">116일 전 <span class="warn">⚠ 관리 안 됨</span></div><div class="d">댓글 검토 대기 <b class="hot">13</b>건</div></div>
-
+    <div class="stat"><div class="k">마지막 업로드</div><div class="v small">116일 전</div><div class="d">댓글 검토 대기 <b class="hot">13</b>건</div></div>
   </div>
-
-  <details><summary>최근 영상 8개</summary><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=fgtO_q3nrFA" target="_blank" rel="noopener">&#x27;징역 25년에 처한다!&#x27; 내란 공범 참교육에 환호하는 시민들</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-23 · 조회 <b>1,234</b> · 좋아요 17 · 댓글 6</div></li><li><a href="https://www.youtube.com/watch?v=gkSwkW6FCGA" target="_blank" rel="noopener">배우가 소련을 무너뜨렸다? — 로널드 레이건의 진짜 이야기</a><div class="vmeta"><span class="tag long">롱폼</span> 06-11 · 조회 <b>25</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=ps-KJgPUY4s" target="_blank" rel="noopener">고1 자퇴생 1만명의 진</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-11 · 조회 <b>1,293</b> · 좋아요 36 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=2Bdtc_JyqtI" target="_blank" rel="noopener">초등학교 &quot;덩&quot;이야기</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-10 · 조회 <b>1,230</b> · 좋아요 10 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=HT64m1qmgkY" target="_blank" rel="noopener">아침부터 위스키를 든 총리가 영국을 구했다? — 윈스턴 처칠의 진짜 이야기</a><div class="vmeta"><span class="tag long">롱폼</span> 06-10 · 조회 <b>13</b> · 좋아요 3 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=1h6GP1wHMxM" target="_blank" rel="noopener">필리핀 7.8 강진 덮침</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-09 · 조회 <b>32</b> · 좋아요 2 · 댓글 1</div></li><li><a href="https://www.youtube.com/watch?v=e31OrdNi8qs" target="_blank" rel="noopener">전세계 조롱꺼리된^^</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-08 · 조회 <b>1,277</b> · 좋아요 11 · 댓글 1</div></li><li><a href="https://www.youtube.com/watch?v=yzYbv6Dd2No" target="_blank" rel="noopener">젠슨 황, 6월 한국 온다 — 세계 1위 엔비디아가 삼성·SK와 무슨 사이길…</a><div class="vmeta"><span class="tag long">롱폼</span> 06-07 · 조회 <b>12</b> · 좋아요 0 · 댓글 0</div></li></ul></details>
-
-</section>
-
-<section class="card">
-
-  <div class="chhead">
-
+  <div class="vhead">최근 영상 8개</div><ul class='vlist'><li><a href="https://www.youtube.com/watch?v=fgtO_q3nrFA" target="_blank" rel="noopener">&#x27;징역 25년에 처한다!&#x27; 내란 공범 참교육에 환호하는 시민들</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-23 · 조회 <b>1,234</b> · 좋아요 17 · 댓글 6</div></li><li><a href="https://www.youtube.com/watch?v=gkSwkW6FCGA" target="_blank" rel="noopener">배우가 소련을 무너뜨렸다? — 로널드 레이건의 진짜 이야기</a><div class="vmeta"><span class="tag long">롱폼</span> 06-11 · 조회 <b>25</b> · 좋아요 0 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=ps-KJgPUY4s" target="_blank" rel="noopener">고1 자퇴생 1만명의 진</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-11 · 조회 <b>1,293</b> · 좋아요 36 · 댓글 2</div></li><li><a href="https://www.youtube.com/watch?v=2Bdtc_JyqtI" target="_blank" rel="noopener">초등학교 &quot;덩&quot;이야기</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-10 · 조회 <b>1,230</b> · 좋아요 10 · 댓글 4</div></li><li><a href="https://www.youtube.com/watch?v=HT64m1qmgkY" target="_blank" rel="noopener">아침부터 위스키를 든 총리가 영국을 구했다? — 윈스턴 처칠의 진짜 이야기</a><div class="vmeta"><span class="tag long">롱폼</span> 06-10 · 조회 <b>13</b> · 좋아요 3 · 댓글 0</div></li><li><a href="https://www.youtube.com/watch?v=1h6GP1wHMxM" target="_blank" rel="noopener">필리핀 7.8 강진 덮침</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-09 · 조회 <b>32</b> · 좋아요 2 · 댓글 1</div></li><li><a href="https://www.youtube.com/watch?v=e31OrdNi8qs" target="_blank" rel="noopener">전세계 조롱꺼리된^^</a><div class="vmeta"><span class="tag short">쇼츠</span> 06-08 · 조회 <b>1,277</b> · 좋아요 11 · 댓글 1</div></li><li><a href="https://www.youtube.com/watch?v=yzYbv6Dd2No" target="_blank" rel="noopener">젠슨 황, 6월 한국 온다 — 세계 1위 엔비디아가 삼성·SK와 무슨 사이길…</a><div class="vmeta"><span class="tag long">롱폼</span> 06-07 · 조회 <b>12</b> · 좋아요 0 · 댓글 0</div></li></ul>
+  </div>
+</details>
+<details class="card">
+  <summary class="row">
     <img src="https://yt3.ggpht.com/YATqPC3EJkzGx0aKjpSOMoDmbgK7sou10Sd-B-LwUDBffVZXpEyYHduCGZAgNDa2JmsFYu9V9og=s88-c-k-c0x00ffffff-no-rj" alt="" class="avatar">
-
-    <div class="chname"><a href="https://www.youtube.com/channel/UCbCyyXELP8vw0yf173Cx-zw" target="_blank" rel="noopener">무비세상</a><div class="handle">@무비세상 · KO · 자동답글</div></div>
-
-    
-
-  </div>
-
+    <div class="rowmain"><div class="rname">무비세상 <span class="warn">⚠ 영상 없음</span></div><div class="rsub">업로드 없음 · 검토 <b class="">0</b>건</div></div>
+    <div class="rnum"><div class="rv">1</div><div class="rd">오늘 <span class="na">-</span></div></div>
+  </summary>
+  <div class="body">
+  <div class="handle"><a href="https://www.youtube.com/channel/UCbCyyXELP8vw0yf173Cx-zw" target="_blank" rel="noopener">@무비세상 채널 열기 →</a> · KO · 자동답글 </div>
   <div class="stats">
-
     <div class="stat"><div class="k">구독자</div><div class="v">1</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">총 조회수</div><div class="v">0</div><div class="d">1일 <span class="na">-</span><br>7일 <span class="na">-</span><br>30일 <span class="na">-</span></div></div>
-
     <div class="stat"><div class="k">영상 수</div><div class="v">0</div><div class="d">최근 7일 업로드 0개<br>그 조회 0</div></div>
-
-    <div class="stat"><div class="k">마지막 업로드</div><div class="v small">- <span class="warn">⚠ 영상 없음</span></div><div class="d">댓글 검토 대기 <b class="">0</b>건</div></div>
-
+    <div class="stat"><div class="k">마지막 업로드</div><div class="v small">-</div><div class="d">댓글 검토 대기 <b class="">0</b>건</div></div>
   </div>
+  <div class="vhead">최근 영상 0개</div><div class="empty">업로드된 영상이 없습니다.</div>
+  </div>
+</details>
 
-  <details><summary>최근 영상 0개</summary><div class="empty">업로드된 영상이 없습니다.</div></details>
-
-</section>
-
-<footer>채널 순서 = 최근 영상 공개일 순(같은 날이면 구독자 순). 증감은 매일 스냅샷 비교값입니다(기록이 쌓이면 7일·30일도 채워집니다). 30분마다 자동 새로고침.</footer>
+<footer>채널 줄을 누르면 자세히 보입니다. 순서 = 최근 영상 공개일 순(같은 날이면 구독자 순). 증감은 매일 스냅샷 비교값입니다(기록이 쌓이면 7일·30일도 채워집니다). 30분마다 자동 새로고침.</footer>
 
 </body></html>
