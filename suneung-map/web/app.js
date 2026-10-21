@@ -28,6 +28,7 @@
       try { localStorage.setItem(LS.cache, JSON.stringify(state.data)); } catch (_) {}
     } catch (e) {
       try { state.data = JSON.parse(localStorage.getItem(LS.cache)); } catch (_) {}
+      if (!state.data && window.__SITES__) state.data = window.__SITES__;
     }
   }
   const sites = () => (state.data && state.data.sites) || [];

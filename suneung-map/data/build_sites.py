@@ -106,6 +106,9 @@ def main():
     os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
+    # file:// 로 직접 열었을 때(fetch 불가)를 위한 스크립트 버전
+    with open(OUT_PATH[:-5] + ".js", "w", encoding="utf-8") as f:
+        f.write("window.__SITES__ = " + json.dumps(out, ensure_ascii=False) + ";\n")
     print(f"OK: {len(sites)} sites, {len(regions)} regions, status={status} -> {os.path.relpath(OUT_PATH, HERE)}")
 
 if __name__ == "__main__":
