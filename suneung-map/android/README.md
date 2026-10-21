@@ -5,7 +5,7 @@
 ## 사전 준비 (PC)
 - Node.js 18+, JDK 17, Android SDK (Android Studio 설치로 충분)
 - `npm i -g @bubblewrap/cli`
-- 웹앱이 HTTPS로 배포되어 있어야 함 (GitHub Pages 권장). 배포 주소를 `twa-manifest.json`의 `YOUR-GITHUB-ID` 자리에 채우기
+- 웹앱이 HTTPS로 배포되어 있어야 함 (GitHub Pages 권장). 배포 주소를 `twa-manifest.json`의 `ykwanghee-lab` 자리에 채우기
 
 ## 빌드
 ```bash
