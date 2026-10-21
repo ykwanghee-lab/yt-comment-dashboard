@@ -151,7 +151,7 @@
     const d = state.data, dd = daysUntil(d.examDate), pd = daysUntil(d.preAssemblyDate);
     const saved = siteById(savedId());
     app.innerHTML = `
-      <section class="card dday">
+      <section class="hero">
         <div class="big">${ddayText(dd)}</div>
         <div class="sub">${esc(d.examYear)} 수능 · ${fmtDate(d.examDate)}</div>
         <div class="row"><span>예비소집 <b>${fmtDate(d.preAssemblyDate)}</b> ${pd >= 0 ? `(${ddayText(pd)})` : ''}</span><span>입실 완료 <b>${esc(d.entryDeadline)}</b></span></div>
