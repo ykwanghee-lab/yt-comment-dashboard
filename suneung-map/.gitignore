@@ -1,0 +1,6 @@
+android/app/
+android/*.keystore
+android/*.apk
+android/*.aab
+android/node_modules/
+__pycache__/
