@@ -259,7 +259,9 @@
         <div class="site-title">${esc(s.name)}</div>
         <div class="muted">${esc(s.addr)}</div>
         ${s.note === '샘플' ? `<div class="banner" style="margin-top:10px">샘플 항목입니다. 실제 배정과 다릅니다.</div>` : ''}
-        <iframe class="map" title="지도" loading="lazy" referrerpolicy="no-referrer" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${s.lat},${s.lng}"></iframe>
+        ${navigator.onLine === false
+          ? `<div class="map map-off">오프라인 상태입니다. 아래 길찾기 버튼은 지도앱이 설치되어 있으면 동작합니다.</div>`
+          : `<iframe class="map" title="지도" loading="lazy" referrerpolicy="no-referrer" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${s.lat},${s.lng}"></iframe>`}
         <div class="grid2" style="margin-top:12px">
           <button class="btn ${isSaved ? 'ghost' : ''}" id="saveBtn">${isSaved ? '✓ 내 시험장' : '내 시험장으로 저장'}</button>
           <button class="btn" id="shareBtn">가족에게 공유</button>
