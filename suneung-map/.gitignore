@@ -1,4 +1,3 @@
-android/app/
 android/*.keystore
 android/*.apk
 android/*.aab
