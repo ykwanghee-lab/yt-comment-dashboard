@@ -4,8 +4,9 @@ sites.csv -> web/data/sites.json 변환기
 
 사용법:
   python3 build_sites.py                 # 변환 + 검증
-  python3 build_sites.py --geocode       # lat/lng 빈 행을 카카오 로컬 API로 지오코딩 (환경변수 KAKAO_REST_KEY)
+  python3 build_sites.py --geocode       # lat/lng 빈 행 지오코딩: KAKAO_REST_KEY 있으면 카카오, 없으면 OpenStreetMap(Nominatim, 1초 1건)
   python3 build_sites.py --status official --version 2027-1
+  python3 build_sites.py --status provisional --basis-year 2026학년도   # 작년 명단: 앱에서 수험번호 조회가 잠김
 
 검증 규칙:
   - district_code(2자리) + site_no(2자리) = 4자리 id 가 전국에서 유일해야 함
@@ -35,10 +36,32 @@ def geocode_kakao(addr, key):
         return None
     return float(docs[0]["y"]), float(docs[0]["x"])
 
+CACHE_PATH = os.path.join(HERE, "geocode_cache.json")
+
+def geocode_nominatim(addr):
+    import time
+    time.sleep(1.1)  # Nominatim 이용 정책: 초당 1건
+    url = "https://nominatim.openstreetmap.org/search?" + urllib.parse.urlencode(
+        {"q": addr, "format": "json", "limit": 1, "countrycodes": "kr"})
+    req = urllib.request.Request(url, headers={"User-Agent": "suneung-map-data-builder/1.0"})
+    with urllib.request.urlopen(req, timeout=15) as r:
+        docs = json.load(r)
+    if not docs:
+        return None
+    return float(docs[0]["lat"]), float(docs[0]["lon"])
+
+def geocode(addr, key, cache):
+    if addr in cache:
+        return tuple(cache[addr]) if cache[addr] else None
+    g = geocode_kakao(addr, key) if key else geocode_nominatim(addr)
+    cache[addr] = list(g) if g else None
+    return g
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--geocode", action="store_true")
-    ap.add_argument("--status", default=None, help="sample | official")
+    ap.add_argument("--status", default=None, help="sample | provisional | official")
+    ap.add_argument("--basis-year", default=None, help="provisional 일 때 기준 학년도 (예: 2026학년도)")
     ap.add_argument("--version", default=None)
     args = ap.parse_args()
 
@@ -51,8 +74,9 @@ def main():
     reader = csv.DictReader(rows)
 
     key = os.environ.get("KAKAO_REST_KEY")
-    if args.geocode and not key:
-        sys.exit("--geocode 에는 KAKAO_REST_KEY 환경변수가 필요합니다.")
+    cache = {}
+    if os.path.exists(CACHE_PATH):
+        cache = json.load(open(CACHE_PATH, encoding="utf-8"))
 
     regions, sites, ids, errors = {}, [], set(), []
     all_sample = True
@@ -66,7 +90,7 @@ def main():
         ids.add(sid)
         lat, lng = r.get("lat"), r.get("lng")
         if (not lat or not lng) and args.geocode:
-            g = geocode_kakao(r["address"], key)
+            g = geocode(r["address"], key, cache)
             if g: lat, lng = g
             else: errors.append(f"지오코딩 실패: {r['school_name']} {r['address']}")
         try:
@@ -85,6 +109,9 @@ def main():
             **({"note": r["note"]} if r.get("note") else {}),
         })
 
+    if args.geocode:
+        with open(CACHE_PATH, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False, indent=0)
     if errors:
         print("\n".join("ERROR " + e for e in errors), file=sys.stderr)
         sys.exit(1)
@@ -95,6 +122,7 @@ def main():
     out = {
         "version": args.version or now.strftime("%Y%m%d-%H%M"),
         "status": status,
+        **({"basisYear": args.basis_year} if args.basis_year else {}),
         "updatedAt": now.isoformat(timespec="seconds"),
         **EXAM,
         "regions": [
