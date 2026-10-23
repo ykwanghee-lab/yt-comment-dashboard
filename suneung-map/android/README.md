@@ -24,7 +24,8 @@
 - 앱 콘텐츠: 개인정보처리방침 URL(`../web/privacy.html` 배포 주소), 데이터 보안 "수집 없음", 광고 없음
 - 등록정보 문구와 이미지: `../store/`
 
-## Digital Asset Links 위치 주의
-assetlinks.json 은 **도메인 루트**(`https://ykwanghee-lab.github.io/.well-known/assetlinks.json`)에 있어야 합니다.
-프로젝트 페이지 하위 경로(`/yt-comment-dashboard/...`)에 있는 사본은 검증에 쓰이지 않습니다.
-루트에 두려면 `ykwanghee-lab.github.io` 이름의 저장소(사용자 사이트)에 `.well-known/assetlinks.json` 과 `.nojekyll` 을 넣습니다.
+## Digital Asset Links 위치
+2026-10-24부터 웹앱은 Render 정적 사이트 `https://suneung-map.onrender.com/` 에서 서비스한다.
+도메인 루트가 우리 것이므로 `web/.well-known/assetlinks.json` 이 그대로 `https://suneung-map.onrender.com/.well-known/assetlinks.json` 으로 배포된다.
+예전 GitHub Pages 주소와 `ykwanghee-lab.github.io` 사용자 사이트는 예비로 남겨 둔다.
+주소를 다시 바꿀 때는 `python3 suneung-map/tools/set_host.py <새 호스트>` 를 쓴다.

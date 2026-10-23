@@ -15,7 +15,7 @@
 ## 2. 앱 콘텐츠
 | 항목 | 답 |
 |---|---|
-| 개인정보처리방침 | https://ykwanghee-lab.github.io/yt-comment-dashboard/suneung-map/web/privacy.html |
+| 개인정보처리방침 | https://suneung-map.onrender.com/privacy.html |
 | 앱 액세스 권한 | 모든 기능을 특별한 액세스 권한 없이 사용 가능 |
 | 광고 | 아니요, 앱에 광고가 없습니다 |
 | 콘텐츠 등급 | 이메일 입력, 카테고리 "기타 모든 앱 유형". 폭력·성·언어·약물·도박 질문 모두 "아니요". 사용자 간 소통·콘텐츠 공유 "아니요", 위치 공유 "아니요", 디지털 구매 "아니요" |
@@ -33,7 +33,7 @@
 | 앱 카테고리 | 교육 |
 | 태그 | 교육 관련 태그 아무거나 최대 5개 |
 | 이메일 | jw593333@gmail.com |
-| 웹사이트 | https://ykwanghee-lab.github.io/yt-comment-dashboard/suneung-map/web/ |
+| 웹사이트 | https://suneung-map.onrender.com/ |
 
 ## 4. 기본 스토어 등록정보
 | 항목 | 답 |

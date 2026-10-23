@@ -52,7 +52,7 @@
 13세 이상 (주 이용자 고3 수험생 및 학부모). 아동 대상 앱 아님.
 
 ## 개인정보처리방침 URL
-https://ykwanghee-lab.github.io/yt-comment-dashboard/suneung-map/web/privacy.html
+https://suneung-map.onrender.com/privacy.html
 
 ## 그래픽 자산
 - 앱 아이콘 512×512: web/icons/icon-512.png
