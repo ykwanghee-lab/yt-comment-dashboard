@@ -7,7 +7,10 @@
       "namespace": "android_app",
       "package_name": "kr.suneungmap.app",
       "sha256_cert_fingerprints": [
-        "E0:73:75:B2:52:1C:4D:43:C6:4E:E8:85:BB:EC:43:70:1A:7C:98:58:95:FE:D0:B6:79:E6:5D:51:A0:47:DC:5A"
+        "64:E8:00:D1:D0:99:F6:1E:5B:7D:BD:D6:F5:06:AD:4D:EC:92:E5:DA:8E:E3:26:C6:CD:24:0D:FC:E6:48:7F:63",
+        "FB:B2:3E:85:DF:2B:7D:EC:77:03:33:9C:3D:F0:17:87:8C:BF:2B:1C:26:F1:A6:8C:23:4F:8F:26:27:C6:6E:AB",
+        "EE:BE:A4:DF:DF:42:6E:1C:00:B1:43:F5:B9:20:9A:F1:66:08:F6:3C:6A:73:08:5F:3D:70:2C:D7:A6:4F:EE:78",
+        "02:E2:8E:07:7E:34:D3:1D:84:5A:30:DD:A5:D5:75:36:46:E7:EA:09:B7:44:9B:2D:67:D8:B2:14:63:12:01:FB"
       ]
     }
   }
