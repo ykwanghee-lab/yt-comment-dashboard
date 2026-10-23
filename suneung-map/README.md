@@ -30,8 +30,9 @@ cd web && python3 -m http.server 8765
 `web/data/sites.json` 의 `status` 가 `sample` 이면 앱 상단에 샘플 안내가 뜹니다. 교육청 명단 반영 후 `official` 로 바꿉니다. 절차는 `data/README.md`.
 
 ## 배포
-1. GitHub Pages 로 `web/` 를 HTTPS 배포 (저장소 설정 → Pages). 배포 URL 을 `android/twa-manifest.json` 에 반영
-2. `android/README.md` 대로 AAB 빌드 → Play Console 비공개 테스트 → 프로덕션
+- 웹앱: Render 정적 사이트 `https://suneung-map.onrender.com/` (서비스 이름 `suneung-map`, 게시 폴더 `suneung-map/web`, main 커밋 시 자동 배포).
+  예전 GitHub Pages 주소는 예비로 남아 있다. 주소를 바꿀 때는 `python3 tools/set_host.py <새 호스트>`.
+- Android: main 에 `android/` 변경이 올라가면 GitHub Actions 가 서명된 AAB 를 빌드한다. 절차는 `android/README.md`.
 
 ## 일정 (2026)
 | 기간 | 할 일 |
