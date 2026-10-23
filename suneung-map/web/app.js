@@ -144,6 +144,9 @@
     if (state.data.status === 'sample') {
       return `<div class="banner">⚠️ 지금은 <b>샘플 데이터</b>입니다. 각 시·도교육청이 시험장 명단을 발표(11월 초)하면 실제 명단으로 자동 반영됩니다.</div>`;
     }
+    if (state.data.status === 'provisional') {
+      return `<div class="banner">📋 지금은 <b>작년(${esc(state.data.basisYear || '전년도')}) 시험장 명단</b>입니다. 시험장은 해마다 대부분 같지만 바뀔 수 있습니다. 올해 명단이 발표되면 자동으로 바뀌고, 그때 수험번호 조회도 열립니다.</div>`;
+    }
     return `<div class="banner ok">✅ 교육청 발표 시험장 명단 반영 (업데이트 ${esc(state.data.updatedAt.slice(0, 10))})</div>`;
   }
   function home() {
@@ -182,7 +185,14 @@
       </section>
       <p class="footer">데이터 버전 ${esc(d.version)} · 시험장 배정은 반드시 수험표로 최종 확인하세요.</p>`;
     const input = $('#code');
-    setTimeout(() => { if (!saved) input.focus(); }, 50);
+    if (d.status === 'provisional') {
+      // 작년 번호 체계로 올해 수험번호를 조회하면 다른 학교가 나올 수 있어 잠근다
+      input.disabled = true; input.placeholder = '----';
+      const btn = $('#codeForm button'); btn.disabled = true; btn.textContent = '올해 명단 발표 후 열립니다';
+      const err = $('#codeErr'); err.hidden = false; err.style.color = 'var(--muted)';
+      err.textContent = '작년 명단으로는 올해 수험번호를 정확히 찾을 수 없어 잠시 막아 두었습니다. 지금은 아래 "지역·학교 이름으로 찾기"를 이용하세요.';
+    }
+    setTimeout(() => { if (!saved && !input.disabled) input.focus(); }, 50);
     input.addEventListener('input', () => { input.value = input.value.replace(/\D/g, '').slice(0, 4); if (input.value.length === 4) lookup(); });
     $('#codeForm').addEventListener('submit', (e) => { e.preventDefault(); lookup(); });
     function lookup() {
@@ -260,6 +270,7 @@
         <div class="site-title">${esc(s.name)}</div>
         <div class="muted">${esc(s.addr)}</div>
         ${s.note === '샘플' ? `<div class="banner" style="margin-top:10px">샘플 항목입니다. 실제 배정과 다릅니다.</div>` : ''}
+        ${state.data.status === 'provisional' ? `<div class="banner" style="margin-top:10px">작년 시험장 정보입니다. 올해도 시험장인지는 수험표로 확인하세요.</div>` : ''}
         ${navigator.onLine === false
           ? `<div class="map map-off">오프라인 상태입니다. 아래 길찾기 버튼은 지도앱이 설치되어 있으면 동작합니다.</div>`
           : `<iframe class="map" title="지도" loading="lazy" referrerpolicy="no-referrer" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${s.lat},${s.lng}"></iframe>`}
