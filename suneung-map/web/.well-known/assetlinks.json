@@ -1,8 +1,14 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "kr.suneungmap.app",
-    "sha256_cert_fingerprints": ["SHA256_FINGERPRINT_HERE"]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "kr.suneungmap.app",
+      "sha256_cert_fingerprints": [
+        "D2:5B:BE:68:6A:CA:8F:84:F9:5F:9B:D3:68:63:46:5C:48:46:97:BD:92:88:91:FB:D6:A0:FA:8A:A6:33:7B:50"
+      ]
+    }
   }
-}]
+]

@@ -3,9 +3,9 @@
 웹앱(`../web`)을 그대로 Android 앱으로 포장한 Gradle 프로젝트입니다. 코드 중복이 없고, 시험장 데이터는 앱 업데이트 없이 웹에서 바로 갱신됩니다.
 
 ## 빌드는 GitHub Actions 가 합니다 (PC 설치 불필요)
-- 이 폴더나 워크플로 파일이 바뀌어 푸시되면 `.github/workflows/android-build.yml` 이 자동 실행됩니다. 저장소 → Actions 탭에서 수동 실행(Run workflow)도 됩니다.
+- main 브랜치에서 이 폴더나 워크플로 파일이 바뀌어 푸시되면 `.github/workflows/android-build.yml` 이 자동 실행됩니다. 저장소 → Actions 탭에서 수동 실행(Run workflow)도 됩니다.
 - 결과물(AAB, APK)은 해당 실행의 "Artifacts" 에서 내려받습니다.
-- 저장소 Secrets 에 `UPLOAD_KEYSTORE_B64`(업로드 키스토어 base64)와 `UPLOAD_KEYSTORE_PASSWORD` 가 있으면 그 키로 서명합니다. 없으면 임시 키로 빌드만 검증하며, 그 결과물 이름에 `TEMPKEY` 가 붙고 **Play 에 올리면 안 됩니다.**
+- 업로드 키는 `upload.jks.enc` 로 암호화되어 저장소에 있습니다(AES-256, PBKDF2). 저장소 Secrets 의 `UPLOAD_KEYSTORE_PASSWORD` 로 복호화해 서명합니다. 업로드 키 SHA-256: `D2:5B:BE:68:6A:CA:8F:84:F9:5F:9B:D3:68:63:46:5C:48:46:97:BD:92:88:91:FB:D6:A0:FA:8A:A6:33:7B:50` 없으면 임시 키로 빌드만 검증하며, 그 결과물 이름에 `TEMPKEY` 가 붙고 **Play 에 올리면 안 됩니다.**
 - 업로드 키는 한 번 정하면 계속 같은 키를 써야 합니다 (Play 앱 서명 사용). 키스토어 파일과 비밀번호는 저장소에 절대 넣지 말고 따로 보관하세요.
 
 ## 버전
@@ -23,3 +23,8 @@
 - 개인 계정: 테스터 12명 × 14일 비공개 테스트 후 프로덕션 신청 가능
 - 앱 콘텐츠: 개인정보처리방침 URL(`../web/privacy.html` 배포 주소), 데이터 보안 "수집 없음", 광고 없음
 - 등록정보 문구와 이미지: `../store/`
+
+## Digital Asset Links 위치 주의
+assetlinks.json 은 **도메인 루트**(`https://ykwanghee-lab.github.io/.well-known/assetlinks.json`)에 있어야 합니다.
+프로젝트 페이지 하위 경로(`/yt-comment-dashboard/...`)에 있는 사본은 검증에 쓰이지 않습니다.
+루트에 두려면 `ykwanghee-lab.github.io` 이름의 저장소(사용자 사이트)에 `.well-known/assetlinks.json` 과 `.nojekyll` 을 넣습니다.

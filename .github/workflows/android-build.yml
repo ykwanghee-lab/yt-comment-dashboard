@@ -5,6 +5,8 @@ on:
     paths:
       - "suneung-map/android/**"
       - ".github/workflows/android-build.yml"
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -27,11 +29,13 @@ jobs:
 
       - name: 서명 키 준비 (비밀값 없으면 임시 키로 빌드만 검증)
         env:
-          B64: ${{ secrets.UPLOAD_KEYSTORE_B64 }}
           PW: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
         run: |
-          if [ -n "$B64" ] && [ -n "$PW" ]; then
-            echo "$B64" | base64 -d > upload.jks
+          if [ -n "$PW" ] && [ -f upload.jks.enc ]; then
+            printf '%s' "$PW" > /tmp/pw && chmod 600 /tmp/pw
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in upload.jks.enc -out upload.jks -pass file:/tmp/pw
+            rm -f /tmp/pw
+            echo "::add-mask::$PW"
             echo "KEYSTORE_PASSWORD=$PW" >> "$GITHUB_ENV"
             echo "SIGNED=signed" >> "$GITHUB_ENV"
           else
