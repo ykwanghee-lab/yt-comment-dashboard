@@ -1,6 +1,10 @@
-android/app/
 android/*.keystore
 android/*.apk
 android/*.aab
 android/node_modules/
 __pycache__/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/*.jks
