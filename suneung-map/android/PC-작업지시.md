@@ -29,8 +29,18 @@ Set-Location yt-comment-dashboard; git checkout main; git pull
 
 ## 2. 새 업로드 키 만들기 (비밀번호는 파일로만)
 키는 저장소 밖 `%USERPROFILE%\Documents\suneung-map-keys\`에 둔다.
+
+> **안전장치: 키가 이미 있으면 절대 새로 만들지 않는다.**
+> 업로드 키는 Play Console에 이미 등록되어 있다(SHA-256 `64:E8:00:D1:…:48:7F:63`, `README.md` 참고).
+> 키를 새로 만들면 다음 업데이트를 구글이 거부한다. 아래 확인에서 멈추면 **2·3단계를 모두 건너뛰고** 4단계로 간다.
+> 키 폴더가 없어졌으면 새로 만들지 말고 백업(`D:\suneung-map-keys`, 구글 드라이브 `내 드라이브\suneung-map-keys`)에서 복사해 온다.
+
 ```powershell
-$K = "$env:USERPROFILE\Documents\suneung-map-keys"; New-Item -ItemType Directory -Force $K | Out-Null
+$K = "$env:USERPROFILE\Documents\suneung-map-keys"
+$backups = @("D:\suneung-map-keys", "G:\내 드라이브\suneung-map-keys")
+$existing = @($K) + $backups | Where-Object { (Test-Path "$_\upload.jks") -or (Test-Path "$_\password.txt") }
+if ($existing) { throw "업로드 키가 이미 있습니다($($existing -join ', ')). 새로 만들지 않고 멈춥니다. 2·3단계를 건너뛰세요." }
+New-Item -ItemType Directory -Force $K | Out-Null
 $chars = [char[]](48..57 + 65..90 + 97..122)
 $pw = -join (1..28 | ForEach-Object { $chars | Get-Random })
 Set-Content -Path "$K\password.txt" -Value $pw -NoNewline -Encoding ascii
@@ -43,6 +53,7 @@ keytool -list -v -keystore "$K\upload.jks" -storepass:file "$K\password.txt" | S
 사용자에게 알린다: "`문서\suneung-map-keys` 폴더를 USB나 개인 클라우드에 백업해 두세요. 잃어버리면 앱 업데이트 때 구글에 키 재설정을 요청해야 합니다."
 
 ## 3. 암호화본 교체 + GitHub 비밀값 등록
+2단계에서 키를 새로 만든 경우에만 실행한다. 2단계 안전장치에서 멈췄으면 이 단계도 건너뛴다.
 ```powershell
 openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in "$K\upload.jks" -out suneung-map\android\upload.jks.enc -pass "file:$K\password.txt"
 Get-Content -Raw "$K\password.txt" | gh secret set UPLOAD_KEYSTORE_PASSWORD -R ykwanghee-lab/yt-comment-dashboard
