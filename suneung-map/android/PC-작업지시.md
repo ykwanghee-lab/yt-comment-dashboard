@@ -76,10 +76,6 @@ gh run download <RUN_ID> -R ykwanghee-lab/yt-comment-dashboard -D "$env:USERPROF
 - 실패하면 `gh run view <RUN_ID> --log-failed` 로 원인을 보고 고친 뒤 다시 푸시한다.
 
 ## 6. 사용자 사이트 저장소 (앱 전체화면용 신원 확인 파일)
-> **2026-10-23 변경: 웹앱을 Render 정적 사이트로 옮기기로 했다. 이 6단계는 건너뛴다.**
-> Render 주소(예: `https://suneung-map.onrender.com`)는 도메인 루트가 우리 것이라 `suneung-map/web/.well-known/assetlinks.json` 이 그대로 루트에 배포된다.
-> 앱 설정의 주소 변경은 클라우드 세션이 Render 주소를 받은 뒤 처리한다. 아래 내용은 참고용으로만 남긴다.
-
 TWA 앱이 주소창 없이 뜨려면 `https://ykwanghee-lab.github.io/.well-known/assetlinks.json` 이 도메인 루트에 있어야 한다.
 ```powershell
 Set-Location $W
@@ -103,7 +99,6 @@ gh api -X POST repos/ykwanghee-lab/ykwanghee-lab.github.io/pages -f "source[bran
 - 바탕화면 `suneung-map-aab` 폴더의 `.aab` 파일 위치
 - 키 백업 폴더 위치와 백업 부탁
 - 다음 할 일: Play Console → 테스트 및 출시 → 비공개 테스트 → 트랙 만들기 → `.aab` 업로드. 자세한 순서는 `suneung-map/store/play-console-답안지.md` 5장.
-- 단, Render 주소로 앱 설정을 바꾸는 작업이 아직이면 그 전에 업로드하지 말라고 알린다 (업로드 후 주소를 바꾸면 새 빌드를 다시 올려야 한다).
 
 ## 8. 나중에 할 일 (첫 업로드 이후)
 Play Console → 테스트 및 출시 → 앱 무결성 → 앱 서명 에 나오는 **앱 서명 키 SHA-256** 을
