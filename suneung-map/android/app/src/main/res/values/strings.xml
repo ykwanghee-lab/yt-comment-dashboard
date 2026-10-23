@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">수능시험장 찾기</string>
-    <string name="launch_url">https://ykwanghee-lab.github.io/yt-comment-dashboard/suneung-map/web/index.html</string>
-    <string name="web_manifest_url">https://ykwanghee-lab.github.io/yt-comment-dashboard/suneung-map/web/manifest.webmanifest</string>
-    <string name="asset_statements">[{\"relation\": [\"delegate_permission/common.handle_all_urls\"], \"target\": {\"namespace\": \"web\", \"site\": \"https://ykwanghee-lab.github.io\"}}]</string>
+    <string name="launch_url">https://suneung-map.onrender.com/index.html</string>
+    <string name="web_manifest_url">https://suneung-map.onrender.com/manifest.webmanifest</string>
+    <string name="asset_statements">[{\"relation\": [\"delegate_permission/common.handle_all_urls\"], \"target\": {\"namespace\": \"web\", \"site\": \"https://suneung-map.onrender.com\"}}]</string>
 </resources>

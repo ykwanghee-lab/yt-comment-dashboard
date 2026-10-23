@@ -2,7 +2,7 @@
   "name": "수능시험장 찾기",
   "short_name": "수능시험장",
   "description": "수험번호 앞 4자리 또는 지역으로 수능 시험장을 찾고, 네이버지도·카카오맵·티맵으로 바로 길찾기",
-  "id": "/yt-comment-dashboard/suneung-map/web/",
+  "id": "/",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

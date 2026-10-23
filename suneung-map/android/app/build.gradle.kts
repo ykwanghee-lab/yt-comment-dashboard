@@ -1,8 +1,8 @@
 plugins { id("com.android.application") }
 
 // 배포 주소: 웹앱이 올라간 곳. 바꾸면 strings.xml 의 launch_url/asset_statements 와 함께 바꿀 것.
-val siteHost = "ykwanghee-lab.github.io"
-val sitePath = "/yt-comment-dashboard/suneung-map/web/"
+val siteHost = "suneung-map.onrender.com"
+val sitePath = "/"
 
 val keystoreFile = rootProject.file("upload.jks")
 val keystorePassword: String = System.getenv("KEYSTORE_PASSWORD") ?: ""
