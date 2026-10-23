@@ -5,7 +5,7 @@
 ## 빌드는 GitHub Actions 가 합니다 (PC 설치 불필요)
 - main 브랜치에서 이 폴더나 워크플로 파일이 바뀌어 푸시되면 `.github/workflows/android-build.yml` 이 자동 실행됩니다. 저장소 → Actions 탭에서 수동 실행(Run workflow)도 됩니다.
 - 결과물(AAB, APK)은 해당 실행의 "Artifacts" 에서 내려받습니다.
-- 업로드 키는 `upload.jks.enc` 로 암호화되어 저장소에 있습니다(AES-256, PBKDF2). 저장소 Secrets 의 `UPLOAD_KEYSTORE_PASSWORD` 로 복호화해 서명합니다. 업로드 키 SHA-256: `D2:5B:BE:68:6A:CA:8F:84:F9:5F:9B:D3:68:63:46:5C:48:46:97:BD:92:88:91:FB:D6:A0:FA:8A:A6:33:7B:50` 없으면 임시 키로 빌드만 검증하며, 그 결과물 이름에 `TEMPKEY` 가 붙고 **Play 에 올리면 안 됩니다.**
+- 업로드 키는 `upload.jks.enc` 로 암호화되어 저장소에 있습니다(AES-256, PBKDF2). 저장소 Secrets 의 `UPLOAD_KEYSTORE_PASSWORD` 로 복호화해 서명합니다. 업로드 키 SHA-256: `64:E8:00:D1:D0:99:F6:1E:5B:7D:BD:D6:F5:06:AD:4D:EC:92:E5:DA:8E:E3:26:C6:CD:24:0D:FC:E6:48:7F:63` 없으면 임시 키로 빌드만 검증하며, 그 결과물 이름에 `TEMPKEY` 가 붙고 **Play 에 올리면 안 됩니다.**
 - 업로드 키는 한 번 정하면 계속 같은 키를 써야 합니다 (Play 앱 서명 사용). 키스토어 파일과 비밀번호는 저장소에 절대 넣지 말고 따로 보관하세요.
 
 ## 버전
