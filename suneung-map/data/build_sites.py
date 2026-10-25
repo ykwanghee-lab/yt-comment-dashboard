@@ -57,6 +57,30 @@ def geocode(addr, key, cache):
     cache[addr] = list(g) if g else None
     return g
 
+def geocode_poi(name, addr, cache):
+    import re, time
+    q = re.sub(r"\(.*?\)", "", name).strip()
+    toks = addr.split()
+    area = toks[1] if len(toks) > 1 else ""          # 시·군·구 (예: 강동구, 수원시)
+    ck = f"@poi:{q}:{area}"
+    if ck in cache:
+        return tuple(cache[ck]) if cache[ck] else None
+    time.sleep(1.1)
+    url = "https://nominatim.openstreetmap.org/search?" + urllib.parse.urlencode(
+        {"q": f"{q} {area}", "format": "json", "limit": 5, "countrycodes": "kr", "accept-language": "ko"})
+    req = urllib.request.Request(url, headers={"User-Agent": "suneung-map-data-builder/1.0"})
+    g = None
+    with urllib.request.urlopen(req, timeout=15) as r:
+        docs = json.load(r)
+    for d in docs:
+        dn = d.get("display_name", "")
+        first = dn.split(",")[0].strip()
+        # 결과의 이름이 학교명과 같고(부분 일치 X), 같은 시·군·구일 때만
+        if first == q and (not area or area in dn):
+            g = (float(d["lat"]), float(d["lon"])); break
+    cache[ck] = list(g) if g else None
+    return g
+
 def geocode_school(name, region, cache):
     import re, time
     q = re.sub(r"\(.*?\)", "", name).strip()
@@ -119,11 +143,14 @@ def main():
             errors.append(f"중복 id {sid}: {r['school_name']}"); continue
         ids.add(sid)
         lat, lng = r.get("lat"), r.get("lng")
+        geo = "given" if (lat and lng) else ""
         if (not lat or not lng) and args.geocode and r["address"]:
-            g = geocode(r["address"], key, cache)
+            # 1순위: 학교 이름으로 학교 부지·건물 자체를 찾는다 (도로 중간점 오차 방지)
+            g, geo = geocode_poi(r["school_name"], r["address"], cache), "poi"
             if not g:
-                # 도로명 주소를 지도 서비스가 모르면 학교 이름으로 찾는다 (이름과 시·도가 결과에 그대로 있을 때만)
-                g = geocode_school(r["school_name"], r["region_name"], cache)
+                g, geo = geocode(r["address"], key, cache), "addr"
+            if not g:
+                g, geo = geocode_school(r["school_name"], r["region_name"], cache), "name"
             if g: lat, lng = g
             else: print(f"WARN 지오코딩 실패: {r['school_name']} {r['address']}")
         try:
@@ -144,6 +171,7 @@ def main():
         sites.append({
             "id": sid, "region": r["region_code"], "district": r["district_code"], "siteNo": f"{r['site_no']:0>2}" if r["site_no"] else "",
             "name": r["school_name"], "addr": r["address"], "lat": round(lat, 6), "lng": round(lng, 6),
+            **({"geo": geo} if geo else {}),
             **({"note": r["note"]} if r.get("note") else {}),
         })
 
