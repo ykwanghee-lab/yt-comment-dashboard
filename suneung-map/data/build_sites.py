@@ -57,12 +57,22 @@ def geocode(addr, key, cache):
     cache[addr] = list(g) if g else None
     return g
 
-def geocode_poi(name, addr, cache):
+REGION_ALIASES = {
+    "서울": ["서울"], "부산": ["부산"], "대구": ["대구"], "인천": ["인천"], "광주": ["광주"], "대전": ["대전"],
+    "울산": ["울산"], "세종": ["세종"], "경기": ["경기"], "강원": ["강원"], "충북": ["충청북도", "충북"],
+    "충남": ["충청남도", "충남"], "전북": ["전라북도", "전북"], "전남": ["전라남도", "전남"],
+    "경북": ["경상북도", "경북"], "경남": ["경상남도", "경남"], "제주": ["제주"],
+}
+
+def region_in(region, text):
+    return any(a in text for a in REGION_ALIASES.get(region, [region]))
+
+def geocode_poi(name, addr, cache, region=""):
     import re, time
     q = re.sub(r"\(.*?\)", "", name).strip()
     toks = addr.split()
     area = toks[1] if len(toks) > 1 else ""          # 시·군·구 (예: 강동구, 수원시)
-    ck = f"@poi:{q}:{area}"
+    ck = f"@poi2:{q}:{area}:{region}"
     if ck in cache:
         return tuple(cache[ck]) if cache[ck] else None
     time.sleep(1.1)
@@ -76,7 +86,8 @@ def geocode_poi(name, addr, cache):
         dn = d.get("display_name", "")
         first = dn.split(",")[0].strip()
         # 결과의 이름이 학교명과 같고(부분 일치 X), 같은 시·군·구일 때만
-        if first == q and (not area or area in dn):
+        # 이름이 정확히 같고, 같은 시·군·구이며, 같은 시·도일 때만 (예: 강원 고성군 vs 경남 고성군 구분)
+        if first == q and (not area or area in dn) and (not region or region_in(region, dn)):
             g = (float(d["lat"]), float(d["lon"])); break
     cache[ck] = list(g) if g else None
     return g
@@ -94,7 +105,7 @@ def geocode_school(name, region, cache):
     g = None
     with urllib.request.urlopen(req, timeout=15) as r:
         for d in json.load(r):
-            if q in d.get("display_name", "") and region in d.get("display_name", ""):
+            if q in d.get("display_name", "") and region_in(region, d.get("display_name", "")):
                 g = (float(d["lat"]), float(d["lon"])); break
     cache[ck] = list(g) if g else None
     return g
@@ -146,7 +157,7 @@ def main():
         geo = "given" if (lat and lng) else ""
         if (not lat or not lng) and args.geocode and r["address"]:
             # 1순위: 학교 이름으로 학교 부지·건물 자체를 찾는다 (도로 중간점 오차 방지)
-            g, geo = geocode_poi(r["school_name"], r["address"], cache), "poi"
+            g, geo = geocode_poi(r["school_name"], r["address"], cache, r["region_name"]), "poi"
             if not g:
                 g, geo = geocode(r["address"], key, cache), "addr"
             if not g:
