@@ -29,6 +29,25 @@ def neis(name, office):
     exact = [x for x in rows if x["SCHUL_NM"] == name]
     return exact or rows
 
+def nominatim_school(name, region):
+    # 나이스에 없는 학교(개명·폐교·병원 등): 지도 검색 결과에 학교 이름과 시·도가 모두 있을 때만 받아들인다
+    time.sleep(1.1)
+    url = "https://nominatim.openstreetmap.org/search?" + urllib.parse.urlencode(
+        {"q": f"{name} {region}", "format": "json", "limit": 3, "countrycodes": "kr", "accept-language": "ko"})
+    with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "suneung-map-data-builder/1.0"}), timeout=20) as r:
+        docs = json.load(r)
+    for d in docs:
+        dn = d.get("display_name", "")
+        if name in dn and region in dn:
+            return dn, float(d["lat"]), float(d["lon"])
+    return None
+
+def pick_by_district(hits, district_name):
+    # 같은 이름 학교가 여럿이면 시험지구 이름의 두 글자 조각이 주소에 들어 있는 학교만 남긴다 (예: 안양과천 -> 안양, 과천)
+    parts = {district_name[i:i + 2] for i in range(len(district_name) - 1)}
+    keep = [h for h in hits if any(p in h["ORG_RDNMA"] for p in parts)]
+    return keep
+
 def main():
     if "--selftest" in sys.argv:
         print(neis("경기고등학교", "B10")[0]["ORG_RDNMA"]); return
@@ -47,12 +66,23 @@ def main():
         except Exception as e:
             hits = []; print("ERR", r["school_name"], e, file=sys.stderr)
         time.sleep(0.3)
+        if len(hits) > 1:
+            hits = pick_by_district(hits, r["district_name"]) or hits
         if len(hits) == 1:
             r["address"] = hits[0]["ORG_RDNMA"].strip(); filled += 1
         elif len(hits) > 1:
             r["note"] = (r.get("note") or "") + " 동명학교확인"; amb += 1
         else:
-            r["note"] = (r.get("note") or "") + " 주소없음"; miss += 1
+            try:
+                g = nominatim_school(qname, r["region_name"])
+            except Exception as e:
+                g = None; print("ERR nominatim", r["school_name"], e, file=sys.stderr)
+            if g:
+                r["address"], r["lat"], r["lng"] = g[0], f"{g[1]:.6f}", f"{g[2]:.6f}"
+                r["note"] = (r.get("note") or "") + " 지도검색주소"; filled += 1
+            else:
+                r["note"] = (r.get("note") or "") + " 주소없음"; miss += 1
+                print("주소없음:", r["region_name"], r["district_name"], r["school_name"])
     with open(CSV_PATH, "w", encoding="utf-8", newline="") as f:
         f.write("\n".join(head) + "\n")
         w = csv.DictWriter(f, fieldnames=fields); w.writeheader(); w.writerows(rows)

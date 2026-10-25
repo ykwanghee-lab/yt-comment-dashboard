@@ -57,6 +57,24 @@ def geocode(addr, key, cache):
     cache[addr] = list(g) if g else None
     return g
 
+def geocode_school(name, region, cache):
+    import re, time
+    q = re.sub(r"\(.*?\)", "", name).strip()
+    ck = f"@school:{q}:{region}"
+    if ck in cache:
+        return tuple(cache[ck]) if cache[ck] else None
+    time.sleep(1.1)
+    url = "https://nominatim.openstreetmap.org/search?" + urllib.parse.urlencode(
+        {"q": f"{q} {region}", "format": "json", "limit": 3, "countrycodes": "kr", "accept-language": "ko"})
+    req = urllib.request.Request(url, headers={"User-Agent": "suneung-map-data-builder/1.0"})
+    g = None
+    with urllib.request.urlopen(req, timeout=15) as r:
+        for d in json.load(r):
+            if q in d.get("display_name", "") and region in d.get("display_name", ""):
+                g = (float(d["lat"]), float(d["lon"])); break
+    cache[ck] = list(g) if g else None
+    return g
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--geocode", action="store_true")
@@ -83,11 +101,11 @@ def main():
     all_sample = True
     for r in reader:
         r = {k: (v or "").strip() for k, v in r.items()}
-        key = (r["region_code"], r["school_name"])
-        if key in seen_school:
+        skey = (r["region_code"], r["school_name"])
+        if skey in seen_school:
             # 여러 학년도 자료가 섞이면 같은 학교가 번호만 바뀌어 두 번 나온다. 처음 것만 둔다.
             skipped.append(f"{r['region_name']} {r['school_name']} ({r['district_code']}-{r['site_no'] or '별도'})"); continue
-        seen_school.add(key)
+        seen_school.add(skey)
         if r["site_no"]:
             sid = f"{r['district_code']:0>2}{r['site_no']:0>2}"
             if len(sid) != 4 or not sid.isdigit():
@@ -101,14 +119,22 @@ def main():
             errors.append(f"중복 id {sid}: {r['school_name']}"); continue
         ids.add(sid)
         lat, lng = r.get("lat"), r.get("lng")
-        if (not lat or not lng) and args.geocode:
+        if (not lat or not lng) and args.geocode and r["address"]:
             g = geocode(r["address"], key, cache)
+            if not g:
+                # 도로명 주소를 지도 서비스가 모르면 학교 이름으로 찾는다 (이름과 시·도가 결과에 그대로 있을 때만)
+                g = geocode_school(r["school_name"], r["region_name"], cache)
             if g: lat, lng = g
-            else: errors.append(f"지오코딩 실패: {r['school_name']} {r['address']}")
+            else: print(f"WARN 지오코딩 실패: {r['school_name']} {r['address']}")
         try:
             lat, lng = float(lat), float(lng)
-        except ValueError:
-            errors.append(f"좌표 없음: {r['school_name']}"); continue
+        except (ValueError, TypeError):
+            msg = f"좌표 없음: {r['region_name']} {r['school_name']}"
+            if (args.status or "") == "official":
+                errors.append(msg)
+            else:
+                skipped.append(msg + " (앱에서 제외)")
+            ids.discard(sid); continue
         if not (33 <= lat <= 39 and 124 <= lng <= 132):
             errors.append(f"좌표 범위 밖: {r['school_name']} {lat},{lng}")
         if r.get("note") != "샘플":
@@ -125,7 +151,7 @@ def main():
         with open(CACHE_PATH, "w", encoding="utf-8") as f:
             json.dump(cache, f, ensure_ascii=False, indent=0)
     if skipped:
-        print(f"중복 제외 {len(skipped)}건: " + "; ".join(skipped))
+        print(f"제외 {len(skipped)}건: " + "; ".join(skipped))
     if errors:
         print("\n".join("ERROR " + e for e in errors), file=sys.stderr)
         sys.exit(1)
