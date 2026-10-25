@@ -122,7 +122,7 @@
   /* ---------- 라우팅 ---------- */
   function route() {
     const h = location.hash.replace(/^#/, '') || '/';
-    const m = h.match(/^\/site\/(\d{4})$/);
+    const m = h.match(/^\/site\/([0-9]{2}(?:[0-9]{2}|S[0-9]{1,2}))$/);
     if (m) return { name: 'site', id: m[1] };
     if (h.startsWith('/find')) return { name: 'find' };
     if (h.startsWith('/check')) return { name: 'check' };
@@ -145,7 +145,7 @@
       return `<div class="banner">⚠️ 지금은 <b>샘플 데이터</b>입니다. 각 시·도교육청이 시험장 명단을 발표(11월 초)하면 실제 명단으로 자동 반영됩니다.</div>`;
     }
     if (state.data.status === 'provisional') {
-      return `<div class="banner">📋 지금은 <b>작년(${esc(state.data.basisYear || '전년도')}) 시험장 명단</b>입니다. 시험장은 해마다 대부분 같지만 바뀔 수 있습니다. 올해 명단이 발표되면 자동으로 바뀌고, 그때 수험번호 조회도 열립니다.</div>`;
+      return `<div class="banner">📋 지금은 <b>지난 시험(${esc(state.data.basisYear || '전년도')}) 기준 시험장 명단</b>입니다. 일부 지역은 빠져 있고, 올해 바뀐 곳이 있을 수 있습니다. 올해 명단이 발표되면 자동으로 바뀌고, 그때 수험번호 조회도 열립니다.</div>`;
     }
     return `<div class="banner ok">✅ 교육청 발표 시험장 명단 반영 (업데이트 ${esc(state.data.updatedAt.slice(0, 10))})</div>`;
   }
@@ -190,7 +190,7 @@
       input.disabled = true; input.placeholder = '----';
       const btn = $('#codeForm button'); btn.disabled = true; btn.textContent = '올해 명단 발표 후 열립니다';
       const err = $('#codeErr'); err.hidden = false; err.style.color = 'var(--muted)';
-      err.textContent = '작년 명단으로는 올해 수험번호를 정확히 찾을 수 없어 잠시 막아 두었습니다. 지금은 아래 "지역·학교 이름으로 찾기"를 이용하세요.';
+      err.textContent = '지난 시험 명단으로는 올해 수험번호를 정확히 찾을 수 없어 잠시 막아 두었습니다. 지금은 아래 "지역·학교 이름으로 찾기"를 이용하세요.';
     }
     setTimeout(() => { if (!saved && !input.disabled) input.focus(); }, 50);
     input.addEventListener('input', () => { input.value = input.value.replace(/\D/g, '').slice(0, 4); if (input.value.length === 4) lookup(); });
@@ -238,7 +238,7 @@
       </section>
       <section class="card">
         <h2>${state.nearby && state.pos ? '가까운 시험장' : '시험장 목록'} <span class="muted small">${list.length}곳</span></h2>
-        ${list.length ? `<ul class="list">${list.map((s) => `<li><a href="#/site/${s.id}"><div><div class="name">${esc(s.name)}</div><div class="addr">${esc(regionName(s.region))} · ${esc(districtName(s.region, s.district))} · ${esc(s.addr)}</div></div><span class="tag">${s.km != null ? s.km.toFixed(1) + 'km' : s.id}</span></a></li>`).join('')}</ul>`
+        ${list.length ? `<ul class="list">${list.map((s) => `<li><a href="#/site/${s.id}"><div><div class="name">${esc(s.name)}</div><div class="addr">${esc(regionName(s.region))} · ${esc(districtName(s.region, s.district))} · ${esc(s.addr)}</div></div><span class="tag">${s.km != null ? s.km.toFixed(1) + 'km' : (s.note === '별도시험장' ? '별도' : (state.data.status === 'official' ? s.id : ''))}</span></a></li>`).join('')}</ul>`
           : `<p class="muted">조건에 맞는 시험장이 없습니다.</p>`}
       </section>`;
     document.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => { state.nearby = b.dataset.tab === 'near'; render(); }));
@@ -266,11 +266,11 @@
     const bbox = `${s.lng - 0.006},${s.lat - 0.0035},${s.lng + 0.006},${s.lat + 0.0035}`;
     app.innerHTML = `
       <section class="card">
-        <span class="chip">${esc(regionName(s.region))} · ${esc(districtName(s.region, s.district))} · 시험장 ${esc(s.siteNo)}</span>
+        <span class="chip">${esc(regionName(s.region))} · ${esc(districtName(s.region, s.district))}${s.note === '별도시험장' ? ' · 별도 시험장' : (state.data.status === 'official' ? ` · 시험장 ${esc(s.siteNo)}` : '')}</span>
         <div class="site-title">${esc(s.name)}</div>
         <div class="muted">${esc(s.addr)}</div>
         ${s.note === '샘플' ? `<div class="banner" style="margin-top:10px">샘플 항목입니다. 실제 배정과 다릅니다.</div>` : ''}
-        ${state.data.status === 'provisional' ? `<div class="banner" style="margin-top:10px">작년 시험장 정보입니다. 올해도 시험장인지는 수험표로 확인하세요.</div>` : ''}
+        ${state.data.status === 'provisional' ? `<div class="banner" style="margin-top:10px">지난 시험 기준 정보입니다. 올해도 시험장인지는 수험표로 확인하세요.</div>` : ''}
         ${navigator.onLine === false
           ? `<div class="map map-off">오프라인 상태입니다. 아래 길찾기 버튼은 지도앱이 설치되어 있으면 동작합니다.</div>`
           : `<iframe class="map" title="지도" loading="lazy" referrerpolicy="no-referrer" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${s.lat},${s.lng}"></iframe>`}

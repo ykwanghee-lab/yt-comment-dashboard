@@ -79,12 +79,24 @@ def main():
         cache = json.load(open(CACHE_PATH, encoding="utf-8"))
 
     regions, sites, ids, errors = {}, [], set(), []
+    seen_school, skipped, special_n = set(), [], {}
     all_sample = True
     for r in reader:
         r = {k: (v or "").strip() for k, v in r.items()}
-        sid = f"{r['district_code']:0>2}{r['site_no']:0>2}"
-        if len(sid) != 4 or not sid.isdigit():
-            errors.append(f"잘못된 id: {r}"); continue
+        key = (r["region_code"], r["school_name"])
+        if key in seen_school:
+            # 여러 학년도 자료가 섞이면 같은 학교가 번호만 바뀌어 두 번 나온다. 처음 것만 둔다.
+            skipped.append(f"{r['region_name']} {r['school_name']} ({r['district_code']}-{r['site_no'] or '별도'})"); continue
+        seen_school.add(key)
+        if r["site_no"]:
+            sid = f"{r['district_code']:0>2}{r['site_no']:0>2}"
+            if len(sid) != 4 or not sid.isdigit():
+                errors.append(f"잘못된 id: {r}"); continue
+        else:
+            # 번호 없는 별도 시험장(편의 시험장, 병원 등): 수험번호 조회 대상이 아니므로 S 접두 id
+            special_n[r["district_code"]] = special_n.get(r["district_code"], 0) + 1
+            sid = f"{r['district_code']:0>2}S{special_n[r['district_code']]}"
+            r["note"] = "별도시험장"
         if sid in ids:
             errors.append(f"중복 id {sid}: {r['school_name']}"); continue
         ids.add(sid)
@@ -104,7 +116,7 @@ def main():
         reg = regions.setdefault(r["region_code"], {"code": r["region_code"], "name": r["region_name"], "districts": {}})
         reg["districts"].setdefault(r["district_code"], {"code": r["district_code"], "name": r["district_name"]})
         sites.append({
-            "id": sid, "region": r["region_code"], "district": r["district_code"], "siteNo": f"{r['site_no']:0>2}",
+            "id": sid, "region": r["region_code"], "district": r["district_code"], "siteNo": f"{r['site_no']:0>2}" if r["site_no"] else "",
             "name": r["school_name"], "addr": r["address"], "lat": round(lat, 6), "lng": round(lng, 6),
             **({"note": r["note"]} if r.get("note") else {}),
         })
@@ -112,6 +124,8 @@ def main():
     if args.geocode:
         with open(CACHE_PATH, "w", encoding="utf-8") as f:
             json.dump(cache, f, ensure_ascii=False, indent=0)
+    if skipped:
+        print(f"중복 제외 {len(skipped)}건: " + "; ".join(skipped))
     if errors:
         print("\n".join("ERROR " + e for e in errors), file=sys.stderr)
         sys.exit(1)

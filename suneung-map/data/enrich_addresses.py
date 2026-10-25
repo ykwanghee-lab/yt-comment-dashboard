@@ -9,7 +9,7 @@ GitHub Actions(인터넷 가능)에서 실행하는 것을 전제로 한다.
 환경변수 NEIS_KEY 가 있으면 사용한다 (없어도 학교명 단건 조회는 된다).
 같은 이름 학교가 여러 개면 비워 두고 note 에 '동명학교확인' 을 적는다.
 """
-import csv, json, os, sys, time, urllib.parse, urllib.request
+import csv, json, os, re, sys, time, urllib.parse, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH = os.path.join(HERE, "sites.csv")
@@ -42,7 +42,8 @@ def main():
             continue
         office = OFFICE.get(r["region_code"])
         try:
-            hits = neis(r["school_name"], office) if office else []
+            qname = re.sub(r"\(.*?\)", "", r["school_name"]).strip()
+            hits = neis(qname, office) if office else []
         except Exception as e:
             hits = []; print("ERR", r["school_name"], e, file=sys.stderr)
         time.sleep(0.3)
