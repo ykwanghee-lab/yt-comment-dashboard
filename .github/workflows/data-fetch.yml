@@ -1,0 +1,42 @@
+name: 시험장 자료 받기
+
+# 클라우드 세션은 외부 사이트 접속이 막혀 있어, 공개 자료 페이지를 여기서 받아 data-raw 브랜치에 올린다.
+# 앱(main)에는 정리·검증된 데이터만 반영한다.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 목록의 주소 받기
+        run: |
+          mkdir -p /tmp/raw
+          : > /tmp/raw/_status.tsv
+          while IFS=$'\t' read -r name url; do
+            [ -z "$name" ] && continue
+            code=$(curl -sSL --max-time 90 -A "Mozilla/5.0 (suneung-map data collector)" \
+              -H "Accept-Language: ko-KR,ko;q=0.9" -o "/tmp/raw/$name" -w "%{http_code}" "$url" || echo "ERR")
+            size=$(stat -c %s "/tmp/raw/$name" 2>/dev/null || echo 0)
+            printf '%s\t%s\t%s\t%s\n' "$name" "$code" "$size" "$url" >> /tmp/raw/_status.tsv
+            sleep 2
+          done < suneung-map/data/fetch/urls.tsv
+          cat /tmp/raw/_status.tsv
+
+      - name: data-raw 브랜치에 올리기
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout --orphan data-raw-tmp
+          git rm -rq --cached . && git clean -fdqx
+          cp -r /tmp/raw ./raw
+          git add raw
+          git commit -qm "raw fetch $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push -qf origin HEAD:data-raw
