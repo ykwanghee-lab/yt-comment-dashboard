@@ -1,0 +1,49 @@
+name: 시험장 주소·좌표 채우기
+
+# sites.csv 의 빈 주소를 나이스로, 빈 좌표를 OpenStreetMap 으로 채운다.
+# 결과는 data-enriched 브랜치에만 올린다. main 반영은 검증 후 사람이(또는 클라우드 세션이) 한다.
+on:
+  workflow_dispatch:
+    inputs:
+      status:
+        description: "sample | provisional | official"
+        default: provisional
+      basis_year:
+        description: "provisional 기준 학년도"
+        default: 2026학년도
+
+permissions:
+  contents: write
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: suneung-map/data
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 나이스 연결 확인
+        run: python enrich_addresses.py --selftest
+      - name: 주소 채우기
+        run: python enrich_addresses.py | tee report.txt
+      - name: 좌표 채우기와 빌드
+        run: |
+          set +e
+          python build_sites.py --geocode --status "${{ inputs.status }}" --basis-year "${{ inputs.basis_year }}" > build.log 2>&1
+          echo "build exit: $?" >> build.log
+          cat build.log | tail -80
+          cat build.log >> report.txt
+      - name: data-enriched 브랜치에 올리기
+        working-directory: .
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout -B data-enriched
+          git add -A suneung-map/data suneung-map/web/data
+          git commit -qm "enrich $(date -u +%Y-%m-%dT%H:%M:%SZ)" || echo "no changes"
+          git push -qf origin data-enriched
